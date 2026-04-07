@@ -93,43 +93,20 @@
   </nav>
 
   <main class="container">
-    <section class="principal">
+    <section class="principal" style="flex: 1;">
       <h2>Personagens</h2>
       <div class="grid-posts" id="posts-personagens"></div>
       <div class="paginacao" id="paginacao-personagens"></div>
     </section>
-
-    <aside class="lateral">
-      <h2>Mais vistos</h2>
-
-      <div class="mini-post card-hover">
-        <img src="imagens/solo.jpg" alt="Solo Leveling">
-        <div>
-          <span class="tag">Anime</span>
-          <h4>Solo Leveling terá novo auge?</h4>
-          <p>Teoria rápida</p>
-        </div>
-      </div>
-
-      <div class="mini-post card-hover">
-        <img src="imagens/tokyo.jpg" alt="Tokyo Revengers">
-        <div>
-          <span class="tag">Curiosidade</span>
-          <h4>Tokyo Revengers ainda pode surpreender?</h4>
-          <p>Curiosidade</p>
-        </div>
-      </div>
-
-      <div class="caixa-afiliado">
-        <h3>Produto geek</h3>
-        <p>Produtos recomendados em breve 🌻</p>
-        <a href="#" class="botao-afiliado">Em breve</a>
-      </div>
-    </aside>
   </main>
 
   <footer class="rodape">
     <p>© 2026 Sunflower Anime 🌻</p>
+    <p style="margin-top:10px;">
+      <a href="sobre.html" style="color:#f5a623; text-decoration:none;">Sobre</a> |
+      <a href="privacidade.html" style="color:#f5a623; text-decoration:none;">Política de Privacidade</a> |
+      <a href="termos.html" style="color:#f5a623; text-decoration:none;">Termos de Uso</a>
+    </p>
   </footer>
 
   <script type="module">
@@ -265,15 +242,17 @@
 
       personagensDaPagina.forEach(post => {
         const slug = post.slug ? post.slug : "#";
+        const titulo = post.titulo ? post.titulo : "Sem título";
+        const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
         const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
 
         container.innerHTML += `
           <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
             <article class="card card-hover">
-              <img src="${post.imagem}" alt="${post.titulo}">
+              <img src="${imagem}" alt="${titulo}">
               <div class="conteudo-card">
                 <span class="tag">Personagens</span>
-                <h3>${post.titulo}</h3>
+                <h3>${titulo}</h3>
                 <p>${descricao}</p>
               </div>
             </article>
