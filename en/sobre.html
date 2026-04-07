@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Sunflower Anime</title>
+  <meta name="description" content="Learn more about Sunflower Anime." />
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .pagina-topo {
+      background: #000;
+      border-bottom: 2px solid #f5a623;
+      padding: 20px 24px;
+    }
+
+    .pagina-topo-conteudo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pagina-topo-logo {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pagina-topo-texto h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #fff;
+    }
+
+    .pagina-topo-texto p {
+      margin: 6px 0 0;
+      color: #ddd;
+      font-size: 1rem;
+    }
+
+    .pagina-info-wrap {
+      max-width: 1100px;
+      margin: 34px auto;
+      padding: 0 16px;
+    }
+
+    .pagina-info {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .pagina-info h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .pagina-info p {
+      color: #d0d0d0;
+      line-height: 1.9;
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+    }
+
+    .rodape-links {
+      margin-top: 10px;
+    }
+
+    .rodape-links a {
+      color: #f5a623;
+      text-decoration: none;
+    }
+
+    .rodape-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .pagina-topo-conteudo {
+        align-items: flex-start;
+      }
+
+      .pagina-topo-logo {
+        width: 56px;
+        height: 56px;
+      }
+
+      .pagina-topo-texto h1 {
+        font-size: 1.8rem;
+      }
+
+      .pagina-info {
+        padding: 22px 18px;
+      }
+
+      .pagina-info h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="pagina-topo">
+    <div class="pagina-topo-conteudo">
+      <img src="../imagens/logo.png" alt="Sunflower Anime Logo" class="pagina-topo-logo" />
+      <div class="pagina-topo-texto">
+        <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
+        <p>Theories, curiosities and news from the anime world</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="menu">
+    <a href="index.html" class="menu-link">Home</a>
+    <a href="teorias.html" class="menu-link">Theories</a>
+    <a href="animes.html" class="menu-link">Anime</a>
+    <a href="curiosidades.html" class="menu-link">Curiosities</a>
+    <a href="personagens.html" class="menu-link">Characters</a>
+  </nav>
+
+  <main class="pagina-info-wrap">
+    <section class="pagina-info">
+      <h2>About Sunflower Anime</h2>
+
+      <p>
+        Sunflower Anime is a space created for anime fans who enjoy following theories,
+        curiosities, memorable characters and organized content all in one place.
+      </p>
+
+      <p>
+        Our goal is to share information in a simple, pleasant way, with care for people
+        who truly love this otaku universe.
+      </p>
+
+      <p>
+        Here you can find content about popular anime, well-known characters, comparisons,
+        curious facts and news from the anime world.
+      </p>
+
+      <p>
+        The site was developed to offer easy navigation, a pleasant visual experience and
+        content designed for people who like exploring this universe in a practical way.
+      </p>
+    </section>
+  </main>
+
+  <footer class="rodape" style="text-align:center; padding:20px;">
+    <p>© 2026 Sunflower Anime - All rights reserved.</p>
+    <p class="rodape-links">
+      <a href="index.html">Home</a> |
+      <a href="sobre.html">About</a> |
+      <a href="privacidade.html">Privacy Policy</a> |
+      <a href="termos.html">Terms of Use</a> |
+      <a href="contato.html">Contact</a> |
+      <a href="../index.html" onclick="localStorage.setItem('sunflower_idioma','pt')">Português</a>
+    </p>
+  </footer>
+
+</body>
+</html>
