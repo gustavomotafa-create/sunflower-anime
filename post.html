@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post - Sunflower Anime</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .pagina-post {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .post-completo {
+      background-color: #111;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .post-completo img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .voltar-post {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ff7a00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .voltar-post:hover {
+      text-decoration: underline;
+    }
+
+    .meta-post {
+      color: #bbb;
+      margin: 10px 0 20px;
+      font-size: 14px;
+    }
+
+    .texto-post {
+      color: #ddd;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topo">
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
+      <div>
+        <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
+        <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="menu">
+    <a href="index.html" class="menu-link">Todos</a>
+    <a href="teorias.html" class="menu-link">Teorias</a>
+    <a href="animes.html" class="menu-link">Animes</a>
+    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+  </nav>
+
+  <main class="pagina-post">
+    <a href="index.html" class="voltar-post">← Voltar para a página inicial</a>
+    <div id="post-container"></div>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Sunflower Anime 🌻</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-XtsU24UNSKJra1Lq_HVvBFdHBG7kezw",
+      authDomain: "sunflower-anime-site.firebaseapp.com",
+      projectId: "sunflower-anime-site",
+      storageBucket: "sunflower-anime-site.firebasestorage.app",
+      messagingSenderId: "727681948763",
+      appId: "1:727681948763:web:423e2b2066274ee6a3737e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    const container = document.getElementById("post-container");
+
+    async function carregarPost() {
+      if (!slug) {
+        container.innerHTML = `
+          <article class="post-completo">
+            <h1>Post não encontrado 😅</h1>
+            <p class="texto-post">Esse link está incompleto ou inválido.</p>
+          </article>
+        `;
+        return;
+      }
+
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+        let post = null;
+        let postId = null;
+
+        snapshot.forEach((item) => {
+          const dados = item.data();
+          if (dados.slug === slug) {
+            post = dados;
+            postId = item.id;
+          }
+        });
+
+        if (post) {
+          try {
+            await updateDoc(doc(db, "posts", postId), {
+              views: increment(1)
+            });
+
+            post.views = (post.views || 0) + 1;
+          } catch (erroViews) {
+            console.error("Erro ao somar view:", erroViews);
+          }
+
+          container.innerHTML = `
+            <article class="post-completo">
+              <span class="tag">${post.categoria || "Post"}</span>
+              <h1>${post.titulo || "Sem título"}</h1>
+              <p class="meta-post">📅 ${post.data || "Sem data"} • 👁️ ${post.views || 0} visualizações</p>
+              <img src="${post.imagem || ""}" alt="${post.titulo || "Post"}">
+              <div class="texto-post">${post.descricao || "Sem descrição."}</div>
+            </article>
+          `;
+        } else {
+          container.innerHTML = `
+            <article class="post-completo">
+              <h1>Post não encontrado 😅</h1>
+              <p class="texto-post">Esse post não existe, foi apagado ou o link está errado.</p>
+            </article>
+          `;
+        }
+      } catch (error) {
+        console.error("Erro ao carregar post do Firebase:", error);
+        container.innerHTML = `
+          <article class="post-completo">
+            <h1>Erro ao carregar 😵</h1>
+            <p class="texto-post">Não foi possível carregar o post agora. Verifique a conexão com o Firebase.</p>
+          </article>
+        `;
+      }
+    }
+
+    carregarPost();
+  </script>
+
+</body>
+</html>

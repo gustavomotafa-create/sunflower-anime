@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunflower Anime 🌻</title>
+  <meta name="description" content="Teorias, curiosidades e notícias do mundo dos animes.">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .intro-site {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .intro-site h2 {
+      margin-bottom: 12px;
+    }
+
+    .intro-site p {
+      color: #d0d0d0;
+      line-height: 1.8;
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    .carousel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .carousel-controles {
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: #171719;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      border: 1px solid #2a2a2d;
+      transition: 0.25s ease;
+    }
+
+    .carousel-btn:hover {
+      background: #f5a623;
+      color: #111;
+    }
+
+    .carousel-wrapper {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .carousel-trilho {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 4px;
+    }
+
+    .carousel-trilho::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-card {
+      min-width: 300px;
+      max-width: 300px;
+      flex: 0 0 300px;
+    }
+
+    .mini-post-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .paginacao {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .paginacao button,
+    .paginacao span {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .paginacao button {
+      border: none;
+      background: #2a2a2a;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+      padding: 0 14px;
+    }
+
+    .paginacao button:hover {
+      background: #3a3a3a;
+    }
+
+    .paginacao button.ativo {
+      background: #f5a623;
+      color: #111;
+    }
+
+    .paginacao button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .paginacao .reticencias {
+      color: #aaa;
+      min-width: auto;
+      padding: 0 4px;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-card {
+        min-width: 260px;
+        max-width: 260px;
+        flex: 0 0 260px;
+      }
+
+      .intro-site {
+        padding: 18px;
+      }
+
+      .paginacao {
+        gap: 8px;
+      }
+
+      .paginacao button,
+      .paginacao span {
+        min-width: 40px;
+        height: 40px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topo">
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
+      <div>
+        <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
+        <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+      </div>
+    </div>
+  </header>
+
+  <div style="text-align:center; margin:10px;">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <div id="admin-area" style="display:none; text-align:center;">
+    <h2>Área Admin 🔒</h2>
+  </div>
+
+  <nav class="menu">
+    <a href="index.html" class="menu-link ativo">Todos</a>
+    <a href="teorias.html" class="menu-link">Teorias</a>
+    <a href="animes.html" class="menu-link">Animes</a>
+    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+    <a href="personagens.html" class="menu-link">Personagens</a>
+  </nav>
+
+  <main class="container">
+
+    <section class="principal">
+
+      <section class="intro-site">
+        <h2>Qual é o intuito da página?</h2>
+        <p>
+          O Sunflower Anime é um espaço feito para quem curte o universo dos animes e gosta de acompanhar
+          teorias, curiosidades, personagens marcantes e novidades em um só lugar. A ideia é reunir conteúdos
+          organizados, fáceis de explorar e feitos com carinho pra quem realmente ama esse mundo otaku 🌻
+        </p>
+      </section>
+
+      <h2>Destaque</h2>
+
+      <div id="destaque-container"></div>
+
+      <div class="carousel-header">
+        <h2>Personagens</h2>
+
+        <div class="carousel-controles">
+          <button class="carousel-btn" id="btn-esquerda" aria-label="Voltar personagens">‹</button>
+          <button class="carousel-btn" id="btn-direita" aria-label="Avançar personagens">›</button>
+        </div>
+      </div>
+
+      <div class="carousel-wrapper">
+        <div class="carousel-trilho" id="carousel-personagens"></div>
+      </div>
+
+      <h2 style="margin-top: 30px;">Últimos posts</h2>
+
+      <div class="grid-posts" id="posts-dinamicos"></div>
+      <div class="paginacao" id="paginacao-posts"></div>
+
+    </section>
+
+    <aside class="lateral">
+
+      <h2>Mais vistos</h2>
+
+      <div id="mais-vistos-container"></div>
+
+    </aside>
+
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Sunflower Anime 🌻</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-XtsU24UNSKJra1Lq_HVvBFdHBG7kezw",
+      authDomain: "sunflower-anime-site.firebaseapp.com",
+      projectId: "sunflower-anime-site",
+      storageBucket: "sunflower-anime-site.firebasestorage.app",
+      messagingSenderId: "727681948763",
+      appId: "1:727681948763:web:423e2b2066274ee6a3737e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const POSTS_POR_PAGINA = 6;
+    let paginaAtual = 1;
+    let todosUltimosPosts = [];
+
+    function transformarDataEmNumero(dataTexto) {
+      if (!dataTexto || typeof dataTexto !== "string") return 0;
+
+      const partes = dataTexto.split("/");
+      if (partes.length !== 3) return 0;
+
+      const dia = Number(partes[0]);
+      const mes = Number(partes[1]) - 1;
+      const ano = Number(partes[2]);
+
+      const data = new Date(ano, mes, dia);
+      return data.getTime() || 0;
+    }
+
+    function criarBotaoPagina(numero) {
+      const botao = document.createElement("button");
+      botao.textContent = numero;
+
+      if (numero === paginaAtual) {
+        botao.classList.add("ativo");
+      }
+
+      botao.onclick = () => {
+        paginaAtual = numero;
+        renderizarPostsPaginados();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      return botao;
+    }
+
+    function criarReticencias() {
+      const span = document.createElement("span");
+      span.textContent = "...";
+      span.className = "reticencias";
+      return span;
+    }
+
+    function montarPaginacao(totalPaginas) {
+      const paginacaoPosts = document.getElementById("paginacao-posts");
+      paginacaoPosts.innerHTML = "";
+
+      if (totalPaginas <= 1) return;
+
+      const botaoAnterior = document.createElement("button");
+      botaoAnterior.textContent = "‹";
+      botaoAnterior.disabled = paginaAtual === 1;
+      botaoAnterior.onclick = () => {
+        paginaAtual--;
+        renderizarPostsPaginados();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      paginacaoPosts.appendChild(botaoAnterior);
+
+      if (totalPaginas <= 7) {
+        for (let i = 1; i <= totalPaginas; i++) {
+          paginacaoPosts.appendChild(criarBotaoPagina(i));
+        }
+      } else {
+        paginacaoPosts.appendChild(criarBotaoPagina(1));
+
+        if (paginaAtual > 3) {
+          paginacaoPosts.appendChild(criarReticencias());
+        }
+
+        let inicio = Math.max(2, paginaAtual - 1);
+        let fim = Math.min(totalPaginas - 1, paginaAtual + 1);
+
+        if (paginaAtual <= 3) {
+          inicio = 2;
+          fim = 4;
+        }
+
+        if (paginaAtual >= totalPaginas - 2) {
+          inicio = totalPaginas - 3;
+          fim = totalPaginas - 1;
+        }
+
+        for (let i = inicio; i <= fim; i++) {
+          paginacaoPosts.appendChild(criarBotaoPagina(i));
+        }
+
+        if (paginaAtual < totalPaginas - 2) {
+          paginacaoPosts.appendChild(criarReticencias());
+        }
+
+        paginacaoPosts.appendChild(criarBotaoPagina(totalPaginas));
+      }
+
+      const botaoProximo = document.createElement("button");
+      botaoProximo.textContent = "›";
+      botaoProximo.disabled = paginaAtual === totalPaginas;
+      botaoProximo.onclick = () => {
+        paginaAtual++;
+        renderizarPostsPaginados();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      paginacaoPosts.appendChild(botaoProximo);
+    }
+
+    function renderizarDestaque(post) {
+      const destaqueContainer = document.getElementById("destaque-container");
+
+      if (!post) {
+        destaqueContainer.innerHTML = `
+          <article class="card-destaque card-hover">
+            <div class="conteudo-card">
+              <span class="tag">Aviso</span>
+              <h3>Nenhum destaque ainda</h3>
+              <p>Crie posts no admin para aparecer um destaque automático 🔥</p>
+            </div>
+          </article>
+        `;
+        return;
+      }
+
+      const slug = post.slug ? post.slug : "#";
+      const categoria = post.categoria ? post.categoria : "Post";
+      const titulo = post.titulo ? post.titulo : "Sem título";
+      const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+      const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/800x400";
+
+      destaqueContainer.innerHTML = `
+        <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
+          <article class="card-destaque card-hover">
+            <img src="${imagem}" alt="${titulo}">
+            <div class="conteudo-card">
+              <span class="tag">${categoria}</span>
+              <h3>${titulo}</h3>
+              <p>${descricao}</p>
+            </div>
+          </article>
+        </a>
+      `;
+    }
+
+    function renderizarPostsPaginados() {
+      const postsDinamicos = document.getElementById("posts-dinamicos");
+
+      postsDinamicos.innerHTML = "";
+
+      if (todosUltimosPosts.length === 0) {
+        postsDinamicos.innerHTML = `
+          <article class="card card-hover">
+            <div class="conteudo-card">
+              <span class="tag">Aviso</span>
+              <h3>Nenhum post criado ainda</h3>
+              <p>Crie posts no admin para eles aparecerem aqui 🔥</p>
+            </div>
+          </article>
+        `;
+        document.getElementById("paginacao-posts").innerHTML = "";
+        return;
+      }
+
+      const totalPaginas = Math.ceil(todosUltimosPosts.length / POSTS_POR_PAGINA);
+      const inicio = (paginaAtual - 1) * POSTS_POR_PAGINA;
+      const fim = inicio + POSTS_POR_PAGINA;
+      const postsDaPagina = todosUltimosPosts.slice(inicio, fim);
+
+      postsDaPagina.forEach(post => {
+        const slug = post.slug ? post.slug : "#";
+        const categoria = post.categoria ? post.categoria : "Post";
+        const titulo = post.titulo ? post.titulo : "Sem título";
+        const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+        const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
+
+        postsDinamicos.innerHTML += `
+          <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
+            <article class="card card-hover">
+              <img src="${imagem}" alt="${titulo}">
+              <div class="conteudo-card">
+                <span class="tag">${categoria}</span>
+                <h3>${titulo}</h3>
+                <p>${descricao}</p>
+              </div>
+            </article>
+          </a>
+        `;
+      });
+
+      montarPaginacao(totalPaginas);
+    }
+
+    async function carregarPersonagensCarousel() {
+      const trilho = document.getElementById("carousel-personagens");
+
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+        let posts = [];
+
+        snapshot.forEach((doc) => {
+          posts.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+
+        const personagens = posts
+          .filter(post => post.categoria === "personagens")
+          .slice(0, 10);
+
+        if (personagens.length === 0) {
+          trilho.innerHTML = `
+            <div class="card carousel-card">
+              <div class="conteudo-card">
+                <span class="tag">Aviso</span>
+                <h3>Nenhum personagem ainda</h3>
+                <p>Crie no admin 🔥</p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        trilho.innerHTML = "";
+
+        personagens.forEach(post => {
+          const slug = post.slug ? post.slug : "#";
+          const titulo = post.titulo ? post.titulo : "Sem título";
+          const descricao = post.descricao ? post.descricao : "Personagem criado pelo admin 🔥";
+          const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
+
+          trilho.innerHTML += `
+            <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link carousel-card">
+              <article class="card card-hover">
+                <img src="${imagem}" alt="${titulo}">
+                <div class="conteudo-card">
+                  <span class="tag">Personagem</span>
+                  <h3>${titulo}</h3>
+                  <p>${descricao}</p>
+                </div>
+              </article>
+            </a>
+          `;
+        });
+
+      } catch (error) {
+        console.error("Erro ao carregar carrossel de personagens:", error);
+        trilho.innerHTML = `
+          <div class="card carousel-card">
+            <div class="conteudo-card">
+              <span class="tag">Erro</span>
+              <h3>Falha no carrossel</h3>
+              <p>Confira o Firebase 🔥</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    async function carregarPosts() {
+      const postsDinamicos = document.getElementById("posts-dinamicos");
+      const maisVistosContainer = document.getElementById("mais-vistos-container");
+      const paginacaoPosts = document.getElementById("paginacao-posts");
+
+      postsDinamicos.innerHTML = "";
+      maisVistosContainer.innerHTML = "";
+      paginacaoPosts.innerHTML = "";
+
+      let posts = [];
+
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+
+        snapshot.forEach((item) => {
+          const dados = item.data();
+
+          posts.push({
+            id: item.id,
+            ...dados,
+            views: dados.views || 0,
+            criadoEmNumero: dados.criadoEm || transformarDataEmNumero(dados.data)
+          });
+        });
+      } catch (error) {
+        console.error("Erro ao carregar posts do Firebase:", error);
+
+        postsDinamicos.innerHTML = `
+          <article class="card card-hover">
+            <div class="conteudo-card">
+              <span class="tag">Erro</span>
+              <h3>Não foi possível carregar os posts</h3>
+              <p>Verifique a conexão com o Firebase 🔥</p>
+            </div>
+          </article>
+        `;
+
+        maisVistosContainer.innerHTML = `
+          <div class="mini-post card-hover">
+            <div class="mini-post-info">
+              <span class="tag">Erro</span>
+              <h4>Falha ao carregar</h4>
+              <p>Confira a configuração do Firebase</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      todosUltimosPosts = [...posts].sort((a, b) => b.criadoEmNumero - a.criadoEmNumero);
+      paginaAtual = 1;
+
+      renderizarDestaque(todosUltimosPosts[0]);
+      renderizarPostsPaginados();
+
+      const postsMaisVistos = [...posts]
+        .sort((a, b) => (b.views || 0) - (a.views || 0))
+        .slice(0, 5);
+
+      if (postsMaisVistos.length === 0) {
+        maisVistosContainer.innerHTML = `
+          <div class="mini-post card-hover">
+            <div class="mini-post-info">
+              <span class="tag">Aviso</span>
+              <h4>Nenhum post em mais vistos</h4>
+              <p>Abra alguns posts para gerar visualizações 😎</p>
+            </div>
+          </div>
+        `;
+      } else {
+        postsMaisVistos.forEach(post => {
+          const slug = post.slug ? post.slug : "#";
+          const categoria = post.categoria ? post.categoria : "Post";
+          const titulo = post.titulo ? post.titulo : "Sem título";
+          const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+          const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/300x200";
+          const views = post.views || 0;
+
+          maisVistosContainer.innerHTML += `
+            <a href="post.html?slug=${encodeURIComponent(slug)}" class="mini-post-link">
+              <div class="mini-post card-hover">
+                <img src="${imagem}" alt="${titulo}">
+                <div class="mini-post-info">
+                  <span class="tag">${categoria}</span>
+                  <h4>${titulo}</h4>
+                  <p>${descricao}</p>
+                  <p class="mini-post-views">👁️ ${views} visualizações</p>
+                </div>
+              </div>
+            </a>
+          `;
+        });
+      }
+    }
+
+    window.login = async function () {
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, senha);
+        alert("Logado com sucesso 😎");
+        window.location.href = "admin.html";
+      } catch (error) {
+        alert("Erro: " + error.message);
+      }
+    };
+
+    window.logout = async function () {
+      try {
+        await signOut(auth);
+        alert("Saiu da conta 👌");
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("Erro ao sair: " + error.message);
+      }
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("admin-area").style.display = "block";
+      } else {
+        document.getElementById("admin-area").style.display = "none";
+      }
+    });
+
+    const btnEsquerda = document.getElementById("btn-esquerda");
+    const btnDireita = document.getElementById("btn-direita");
+
+    btnEsquerda.addEventListener("click", () => {
+      document.getElementById("carousel-personagens").scrollBy({ left: -320, behavior: "smooth" });
+    });
+
+    btnDireita.addEventListener("click", () => {
+      document.getElementById("carousel-personagens").scrollBy({ left: 320, behavior: "smooth" });
+    });
+
+    carregarPosts();
+    carregarPersonagensCarousel();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Sunflower Anime</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+      color: white;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+
+    .caixa {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #181818;
+      border: 1px solid #2d2d2d;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    }
+
+    #loginBox {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #181818;
+      border: 1px solid #2d2d2d;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+    }
+
+    #loginBox h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #f5a623;
+      font-size: 2rem;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #cfcfcf;
+      margin-bottom: 15px;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: #333;
+      margin: 25px 0;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: #101010;
+      color: white;
+      outline: none;
+      margin-bottom: 15px;
+      transition: 0.2s;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #f5a623;
+      box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+    }
+
+    button {
+      background: linear-gradient(135deg, #f5a623, #ff7b00);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .btn-secundario {
+      background: linear-gradient(135deg, #555, #333);
+    }
+
+    .btn-azul {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    }
+
+    .btn-vermelho {
+      background: linear-gradient(135deg, #ff4d4d, #cc0000);
+    }
+
+    .btn-importar {
+      background: linear-gradient(135deg, #10b981, #047857);
+    }
+
+    .topo-painel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .topo-painel h1 {
+      color: #f5a623;
+    }
+
+    .subtitulo {
+      color: #bdbdbd;
+    }
+
+    .form-box {
+      background: #111;
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+    }
+
+    .acoes-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .filtros select {
+      margin-bottom: 0;
+      max-width: 260px;
+    }
+
+    #listaPosts {
+      display: grid;
+      gap: 18px;
+    }
+
+    .post-item {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .post-item img {
+      width: 160px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: #000;
+    }
+
+    .post-info {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .post-info p {
+      margin-bottom: 8px;
+      color: #e6e6e6;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(245, 166, 35, 0.15);
+      color: #f5a623;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: capitalize;
+    }
+
+    .tag-secundaria {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.18);
+      color: #7db2ff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-left: 8px;
+      text-transform: capitalize;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #9e9e9e;
+      margin-bottom: 10px;
+    }
+
+    .descricao-preview {
+      color: #d8d8d8;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+
+    .slug {
+      word-break: break-word;
+      color: #9ecbff;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .vazio {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      border: 1px dashed #444;
+      border-radius: 16px;
+      color: #aaa;
+    }
+
+    .modo-edicao {
+      color: #ffd27a;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .topo-acoes {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+      .caixa {
+        padding: 20px;
+      }
+
+      #loginBox {
+        padding: 25px;
+      }
+
+      .post-item {
+        flex-direction: column;
+      }
+
+      .post-item img {
+        width: 100%;
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginBox">
+    <h2>Login Admin 🔐</h2>
+
+    <input type="email" id="email" placeholder="Seu email do Firebase">
+    <input type="password" id="senha" placeholder="Sua senha">
+
+    <button onclick="login()">Entrar</button>
+  </div>
+
+  <div id="painel" style="display: none;">
+    <div class="caixa">
+      <div class="topo-painel">
+        <div>
+          <h1>Painel Admin 🌻</h1>
+          <p class="subtitulo">Gerencie os posts do Sunflower Anime de forma rápida e fácil 😎</p>
+        </div>
+
+        <div class="topo-acoes">
+          <button class="btn-secundario" onclick="logout()">Sair da conta</button>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="form-box">
+        <h3 id="tituloFormulario">Criar Post</h3>
+        <p id="modoEdicao" class="modo-edicao" style="display: none;">Você está editando um post ✏️</p>
+
+        <input type="text" id="titulo" placeholder="Título do post">
+
+        <select id="categoria">
+          <option value="teorias">Teorias</option>
+          <option value="animes">Animes</option>
+          <option value="curiosidades">Curiosidades</option>
+          <option value="personagens">Personagens</option>
+        </select>
+
+        <select id="exibicao">
+          <option value="normal">Últimos posts</option>
+          <option value="mais-vistos">Mais vistos</option>
+        </select>
+
+        <input type="text" id="imagem" placeholder="Link da imagem">
+
+        <textarea id="descricao" rows="5" placeholder="Descrição do post"></textarea>
+
+        <div class="acoes-form">
+          <button onclick="salvarPost()" id="botaoSalvar">Publicar 🚀</button>
+          <button class="btn-secundario" onclick="cancelarEdicao()" id="botaoCancelar" style="display: none;">Cancelar edição</button>
+          <button class="btn-importar" onclick="importarPostsAntigos()">Importar posts antigos 📥</button>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="filtros">
+        <h3 style="margin-bottom: 0;">Posts criados:</h3>
+
+        <select id="filtroCategoria" onchange="mostrarPosts()">
+          <option value="todos">Todas as categorias</option>
+          <option value="teorias">Teorias</option>
+          <option value="animes">Animes</option>
+          <option value="curiosidades">Curiosidades</option>
+          <option value="personagens">Personagens</option>
+        </select>
+
+        <select id="filtroExibicao" onchange="mostrarPosts()">
+          <option value="todos">Todos os lugares</option>
+          <option value="normal">Últimos posts</option>
+          <option value="mais-vistos">Mais vistos</option>
+        </select>
+      </div>
+
+      <div id="listaPosts"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-XtsU24UNSKJra1Lq_HVvBFdHBG7kezw",
+      authDomain: "sunflower-anime-site.firebaseapp.com",
+      projectId: "sunflower-anime-site",
+      storageBucket: "sunflower-anime-site.firebasestorage.app",
+      messagingSenderId: "727681948763",
+      appId: "1:727681948763:web:423e2b2066274ee6a3737e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let editandoDocId = null;
+    let editandoDataOriginal = null;
+    let editandoCriadoEmOriginal = null;
+    window.postsRenderizados = [];
+
+    window.login = async function () {
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, senha);
+        alert("Logado com sucesso 😎");
+      } catch (error) {
+        alert("Erro: " + error.message);
+      }
+    };
+
+    window.logout = async function () {
+      try {
+        await signOut(auth);
+        alert("Saiu da conta 👌");
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("Erro ao sair: " + error.message);
+      }
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("painel").style.display = "block";
+        mostrarPosts();
+      } else {
+        document.getElementById("loginBox").style.display = "block";
+        document.getElementById("painel").style.display = "none";
+      }
+    });
+
+    function gerarSlug(texto) {
+      return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+    }
+
+    function gerarDataAtual() {
+      const hoje = new Date();
+      const dia = String(hoje.getDate()).padStart(2, "0");
+      const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+      const ano = hoje.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    function limparFormulario() {
+      document.getElementById("titulo").value = "";
+      document.getElementById("imagem").value = "";
+      document.getElementById("descricao").value = "";
+      document.getElementById("categoria").value = "teorias";
+      document.getElementById("exibicao").value = "normal";
+      document.getElementById("titulo").focus();
+
+      editandoDocId = null;
+      editandoDataOriginal = null;
+      editandoCriadoEmOriginal = null;
+      document.getElementById("tituloFormulario").textContent = "Criar Post";
+      document.getElementById("modoEdicao").style.display = "none";
+      document.getElementById("botaoSalvar").textContent = "Publicar 🚀";
+      document.getElementById("botaoCancelar").style.display = "none";
+    }
+
+    window.salvarPost = async function () {
+      const titulo = document.getElementById("titulo").value.trim();
+      const categoria = document.getElementById("categoria").value;
+      const exibicao = document.getElementById("exibicao").value;
+      const imagem = document.getElementById("imagem").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
+
+      if (titulo === "" || imagem === "" || descricao === "") {
+        alert("Preencha título, imagem e descrição 😅");
+        return;
+      }
+
+      const postData = {
+        titulo: titulo,
+        categoria: categoria,
+        exibicao: exibicao,
+        imagem: imagem,
+        descricao: descricao,
+        data: editandoDataOriginal || gerarDataAtual(),
+        criadoEm: editandoCriadoEmOriginal || Date.now(),
+        slug: gerarSlug(titulo)
+      };
+
+      try {
+        if (editandoDocId) {
+          await updateDoc(doc(db, "posts", editandoDocId), postData);
+          alert("Post atualizado 🔥");
+        } else {
+          await addDoc(collection(db, "posts"), {
+            ...postData,
+            views: 0
+          });
+          alert("Post salvo 🔥");
+        }
+
+        limparFormulario();
+        mostrarPosts();
+      } catch (error) {
+        alert("Erro ao salvar no Firebase: " + error.message);
+      }
+    };
+
+    window.mostrarPosts = async function () {
+      const lista = document.getElementById("listaPosts");
+      lista.innerHTML = "";
+
+      const filtroCategoria = document.getElementById("filtroCategoria").value;
+      const filtroExibicao = document.getElementById("filtroExibicao").value;
+
+      let posts = [];
+
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+        snapshot.forEach((item) => {
+          posts.push({
+            id: item.id,
+            ...item.data()
+          });
+        });
+      } catch (error) {
+        console.error("Erro ao carregar posts do Firebase:", error);
+        lista.innerHTML = `<div class="vazio">Erro ao carregar posts do Firebase.</div>`;
+        return;
+      }
+
+      if (filtroCategoria !== "todos") {
+        posts = posts.filter(post => post.categoria === filtroCategoria);
+      }
+
+      if (filtroExibicao !== "todos") {
+        posts = posts.filter(post => (post.exibicao || "normal") === filtroExibicao);
+      }
+
+      posts.sort((a, b) => (b.criadoEm || 0) - (a.criadoEm || 0));
+
+      if (posts.length === 0) {
+        lista.innerHTML = `<div class="vazio">Nenhum post encontrado.</div>`;
+        window.postsRenderizados = [];
+        return;
+      }
+
+      window.postsRenderizados = posts;
+
+      posts.forEach((post, index) => {
+        const exibicaoTexto = (post.exibicao || "normal") === "mais-vistos" ? "Mais vistos" : "Últimos posts";
+        const views = post.views || 0;
+
+        lista.innerHTML += `
+          <div class="post-item">
+            <img src="${post.imagem}" alt="${post.titulo}">
+            <div class="post-info">
+              <span class="tag">${post.categoria}</span>
+              <span class="tag-secundaria">${exibicaoTexto}</span>
+              <p><strong>${post.titulo}</strong></p>
+              <p class="meta">📅 ${post.data || ""} • 👁️ ${views} visualizações</p>
+              <p class="descricao-preview">${post.descricao || ""}</p>
+              <p class="slug">🔗 slug: ${post.slug || ""}</p>
+              <button class="btn-azul" onclick="editarPost(${index})">✏️ Editar</button>
+              <button class="btn-vermelho" onclick="deletarPost('${post.id}')">❌ Excluir</button>
+            </div>
+          </div>
+        `;
+      });
+    };
+
+    window.editarPost = function (index) {
+      const posts = window.postsRenderizados || [];
+      const post = posts[index];
+
+      if (!post) return;
+
+      document.getElementById("titulo").value = post.titulo || "";
+      document.getElementById("categoria").value = post.categoria || "teorias";
+      document.getElementById("exibicao").value = post.exibicao || "normal";
+      document.getElementById("imagem").value = post.imagem || "";
+      document.getElementById("descricao").value = post.descricao || "";
+
+      editandoDocId = post.id || null;
+      editandoDataOriginal = post.data || gerarDataAtual();
+      editandoCriadoEmOriginal = post.criadoEm || Date.now();
+
+      document.getElementById("tituloFormulario").textContent = "Editar Post";
+      document.getElementById("modoEdicao").style.display = "block";
+      document.getElementById("botaoSalvar").textContent = "Salvar alterações 💾";
+      document.getElementById("botaoCancelar").style.display = "inline-block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+
+    window.cancelarEdicao = function () {
+      limparFormulario();
+    };
+
+    window.deletarPost = async function (id) {
+      if (!id) return;
+
+      const confirmar = confirm("Tem certeza que deseja excluir este post?");
+      if (!confirmar) return;
+
+      try {
+        await deleteDoc(doc(db, "posts", id));
+
+        if (editandoDocId === id) {
+          limparFormulario();
+        }
+
+        mostrarPosts();
+      } catch (error) {
+        alert("Erro ao excluir do Firebase: " + error.message);
+      }
+    };
+
+    window.importarPostsAntigos = async function () {
+      const agora = Date.now();
+
+      const antigos = [
+        {
+          titulo: "Gojo pode voltar?",
+          categoria: "teorias",
+          exibicao: "normal",
+          imagem: "imagens/gojo.jpg",
+          descricao: "Uma teoria sobre Jujutsu Kaisen.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 8000,
+          views: 0,
+          slug: "gojo-pode-voltar"
+        },
+        {
+          titulo: "Kurama foi a melhor parceria dos animes?",
+          categoria: "curiosidades",
+          exibicao: "normal",
+          imagem: "imagens/kurama.jpg",
+          descricao: "Uma curiosidade sobre a relação entre Naruto e Kurama.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 7000,
+          views: 0,
+          slug: "kurama-foi-a-melhor-parceria-dos-animes"
+        },
+        {
+          titulo: "O verdadeiro sonho do Luffy",
+          categoria: "animes",
+          exibicao: "normal",
+          imagem: "imagens/solo.jpg",
+          descricao: "O que Oda pode estar escondendo até hoje.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 6000,
+          views: 0,
+          slug: "o-verdadeiro-sonho-do-luffy"
+        },
+        {
+          titulo: "Roronoa Zoro",
+          categoria: "personagens",
+          exibicao: "normal",
+          imagem: "imagens/zoro.jpg",
+          descricao: "Espadachim dos Chapéus de Palha e um dos personagens mais brabos de One Piece.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 5000,
+          views: 0,
+          slug: "roronoa-zoro"
+        },
+        {
+          titulo: "Itachi Uchiha",
+          categoria: "personagens",
+          exibicao: "normal",
+          imagem: "imagens/itachi.jpg",
+          descricao: "Um dos personagens mais profundos e marcantes de Naruto.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 4000,
+          views: 0,
+          slug: "itachi-uchiha"
+        },
+        {
+          titulo: "Satoru Gojo",
+          categoria: "personagens",
+          exibicao: "normal",
+          imagem: "imagens/gojo2.jpg",
+          descricao: "O feiticeiro mais apelão e carismático de Jujutsu Kaisen.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 3000,
+          views: 0,
+          slug: "satoru-gojo"
+        },
+        {
+          titulo: "Solo Leveling terá novo auge?",
+          categoria: "animes",
+          exibicao: "mais-vistos",
+          imagem: "imagens/solo.jpg",
+          descricao: "Teoria rápida.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 2000,
+          views: 0,
+          slug: "solo-leveling-tera-novo-auge"
+        },
+        {
+          titulo: "Tokyo Revengers ainda pode surpreender?",
+          categoria: "curiosidades",
+          exibicao: "mais-vistos",
+          imagem: "imagens/tokyo.jpg",
+          descricao: "Curiosidade.",
+          data: gerarDataAtual(),
+          criadoEm: agora - 1000,
+          views: 0,
+          slug: "tokyo-revengers-ainda-pode-surpreender"
+        }
+      ];
+
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+        const existentes = [];
+
+        snapshot.forEach((item) => {
+          const dados = item.data();
+          if (dados.slug) {
+            existentes.push(dados.slug);
+          }
+        });
+
+        let quantidadeImportada = 0;
+
+        for (const postAntigo of antigos) {
+          if (!existentes.includes(postAntigo.slug)) {
+            await addDoc(collection(db, "posts"), postAntigo);
+            quantidadeImportada++;
+          }
+        }
+
+        if (quantidadeImportada > 0) {
+          alert("Posts antigos importados pro Firebase 🔥");
+        } else {
+          alert("Esses posts antigos já estavam no Firebase 😎");
+        }
+
+        mostrarPosts();
+      } catch (error) {
+        alert("Erro ao importar posts antigos: " + error.message);
+      }
+    };
+  </script>
+
+</body>
+</html>
