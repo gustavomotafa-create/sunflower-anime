@@ -4,71 +4,142 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Termos de Uso - Sunflower Anime</title>
+  <meta name="description" content="Termos de Uso do site Sunflower Anime.">
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .pagina-info {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .pagina-info h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .pagina-info h2 {
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .pagina-info p {
+      color: #d0d0d0;
+      line-height: 1.9;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .links-footer {
+      margin-top: 10px;
+    }
+
+    .links-footer a {
+      color: #f5a623;
+      text-decoration: none;
+    }
+
+    .links-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .pagina-info {
+        margin: 20px 12px;
+        padding: 22px 18px;
+      }
+
+      .pagina-info h1 {
+        font-size: 1.7rem;
+      }
+
+      .pagina-info h2 {
+        font-size: 1.2rem;
+      }
+
+      .pagina-info p {
+        font-size: 0.96rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="topo-site">
-    <div class="logo-area">
-      <img src="imagens/logo.png" alt="Logo Sunflower Anime" class="logo" />
+
+  <header class="topo">
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
       <div>
-        <h1><span class="logo-destaque">Sunflower</span> Anime 🌻</h1>
+        <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
         <p>Teorias, curiosidades e notícias do mundo dos animes</p>
       </div>
     </div>
   </header>
 
-  <main class="container" style="padding: 40px 20px;">
-    <section class="card">
-      <h2>Termos de Uso</h2>
+  <nav class="menu">
+    <a href="index.html" class="menu-link">Início</a>
+    <a href="teorias.html" class="menu-link">Teorias</a>
+    <a href="animes.html" class="menu-link">Animes</a>
+    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+    <a href="personagens.html" class="menu-link">Personagens</a>
+  </nav>
+
+  <main class="container">
+    <section class="pagina-info">
+      <h1>Termos de Uso</h1>
 
       <p>
         Ao acessar o site Sunflower Anime, você concorda com os termos e condições descritos nesta página.
       </p>
 
-      <h3>1. Uso do conteúdo</h3>
+      <h2>1. Uso do conteúdo</h2>
       <p>
         Todo o conteúdo publicado neste site é apenas para fins informativos e de entretenimento.
         Não garantimos que todas as informações estejam sempre completas ou atualizadas.
       </p>
 
-      <h3>2. Responsabilidade</h3>
+      <h2>2. Responsabilidade</h2>
       <p>
-        O Sunflower Anime não se responsabiliza por decisões tomadas com base nas informações
-        disponíveis no site.
+        O Sunflower Anime não se responsabiliza por decisões tomadas com base nas informações disponíveis no site.
       </p>
 
-      <h3>3. Direitos autorais</h3>
+      <h2>3. Direitos autorais</h2>
       <p>
-        Parte das imagens e conteúdos podem pertencer a seus respectivos autores.
-        Caso algum conteúdo viole direitos autorais, entre em contato para remoção.
+        Parte das imagens e conteúdos podem pertencer a seus respectivos autores. Caso algum conteúdo viole direitos autorais, entre em contato para remoção.
       </p>
 
-      <h3>4. Links externos</h3>
+      <h2>4. Links externos</h2>
       <p>
-        Este site pode conter links para outros sites. Não somos responsáveis pelo conteúdo
-        ou práticas desses sites.
+        Este site pode conter links para outros sites. Não somos responsáveis pelo conteúdo ou práticas desses sites.
       </p>
 
-      <h3>5. Modificações</h3>
+      <h2>5. Modificações</h2>
       <p>
         Os termos podem ser alterados a qualquer momento, sem aviso prévio.
       </p>
 
-      <h3>6. Aceitação</h3>
+      <h2>6. Aceitação</h2>
       <p>
         Ao continuar utilizando o site, você concorda com estes termos.
       </p>
     </section>
   </main>
 
-  <footer class="rodape-site" style="padding: 20px; text-align: center;">
-    <p>&copy; 2026 Sunflower Anime - Todos os direitos reservados.</p>
-    <p>
+  <footer class="rodape" style="text-align:center; padding:20px;">
+    <p>© 2026 Sunflower Anime - Todos os direitos reservados.</p>
+
+    <p class="links-footer">
       <a href="index.html">Início</a> |
       <a href="sobre.html">Sobre</a> |
       <a href="privacidade.html">Política de Privacidade</a> |
       <a href="termos.html">Termos de Uso</a>
     </p>
   </footer>
+
 </body>
 </html>
