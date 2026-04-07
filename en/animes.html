@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animes - Sunflower Anime 🌻</title>
-  <meta name="description" content="Posts sobre animes.">
-  <link rel="stylesheet" href="style.css">
+  <title>Anime - Sunflower Anime 🌻</title>
+  <meta name="description" content="Posts about anime.">
+  <link rel="stylesheet" href="../style.css">
 
   <style>
     .paginacao {
@@ -76,24 +76,25 @@
 
 <header class="topo">
   <div class="logo">
-    <img src="imagens/logo.png" alt="Logo">
+    <img src="../imagens/logo.png" alt="Logo">
     <div>
       <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
-      <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+      <p>Theories, curiosities and news from the anime world</p>
     </div>
   </div>
 </header>
 
 <nav class="menu">
-  <a href="index.html" class="menu-link">Todos</a>
-  <a href="teorias.html" class="menu-link">Teorias</a>
-  <a href="animes.html" class="menu-link ativo">Animes</a>
-  <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+  <a href="index.html" class="menu-link">All</a>
+  <a href="teorias.html" class="menu-link">Theories</a>
+  <a href="animes.html" class="menu-link ativo">Anime</a>
+  <a href="curiosidades.html" class="menu-link">Curiosities</a>
+  <a href="personagens.html" class="menu-link">Characters</a>
 </nav>
 
 <main class="container">
   <section class="principal">
-    <h2>Animes</h2>
+    <h2>Anime</h2>
 
     <div class="grid-posts" id="animes-container"></div>
     <div class="paginacao" id="paginacao-animes"></div>
@@ -222,9 +223,9 @@
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Aviso</span>
-            <h3>Nenhum anime criado ainda</h3>
-            <p>Crie posts no admin para eles aparecerem aqui 🔥</p>
+            <span class="tag">Notice</span>
+            <h3>No anime posts created yet</h3>
+            <p>Create posts in the admin panel so they can appear here 🔥</p>
           </div>
         </article>
       `;
@@ -238,7 +239,7 @@
 
     animesDaPagina.forEach(post => {
       const slug = post.slug ? post.slug : "#";
-      const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+      const descricao = post.descricao ? post.descricao : "Post created in the admin panel 🔥";
 
       container.innerHTML += `
         <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
@@ -271,19 +272,19 @@
         });
       });
 
-      todosAnimes = posts.filter(post => post.categoria === "animes");
+      todosAnimes = posts.filter(post => post.categoria === "animes" && (post.idioma || "pt") === "en");
       paginaAtual = 1;
       renderizarAnimesPaginados();
 
     } catch (error) {
-      console.error("Erro ao carregar animes do Firebase:", error);
+      console.error("Error loading anime posts from Firebase:", error);
 
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Erro</span>
-            <h3>Erro ao carregar animes</h3>
-            <p>Confira a conexão com o Firebase 🔥</p>
+            <span class="tag">Error</span>
+            <h3>Error loading anime posts</h3>
+            <p>Check the Firebase connection 🔥</p>
           </div>
         </article>
       `;
