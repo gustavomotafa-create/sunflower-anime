@@ -146,6 +146,41 @@
       padding: 0 4px;
     }
 
+    .language-switch-top {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 0 auto 18px;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    .language-switch-top a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      background: #171719;
+      color: white;
+      border: 1px solid #2a2a2d;
+      transition: 0.2s ease;
+    }
+
+    .language-switch-top a:hover {
+      background: #f5a623;
+      color: #111;
+    }
+
+    .language-switch-top a.ativo {
+      background: #f5a623;
+      color: #111;
+      border-color: #f5a623;
+    }
+
     @media (max-width: 768px) {
       .carousel-card {
         min-width: 260px;
@@ -167,6 +202,17 @@
         height: 40px;
         font-size: 15px;
       }
+
+      .language-switch-top {
+        justify-content: center;
+        padding: 0 15px;
+        flex-wrap: wrap;
+      }
+
+      .language-switch-top a {
+        font-size: 13px;
+        padding: 9px 12px;
+      }
     }
   </style>
 </head>
@@ -181,6 +227,11 @@
       </div>
     </div>
   </header>
+
+  <div class="language-switch-top">
+    <a href="/index.html" class="ativo" onclick="localStorage.setItem('sunflower_idioma', 'pt')">🇧🇷 Português</a>
+    <a href="/en/index.html" onclick="localStorage.setItem('sunflower_idioma', 'en')">🇺🇸 English</a>
+  </div>
 
  <div id="login-container" style="display:none; text-align:center; margin:10px;">
   <input type="email" id="email" placeholder="Email">
