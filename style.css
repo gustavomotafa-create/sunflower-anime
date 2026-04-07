@@ -396,7 +396,6 @@ img:hover {
 
 /* ESCONDER LOGIN / ADMIN DO SITE */
 #login-container,
-.admin-area,
 #admin-area {
   display: none !important;
 }
