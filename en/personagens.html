@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personagens - Sunflower Anime 🌻</title>
-  <meta name="description" content="Personagens do mundo dos animes no Sunflower Anime.">
-  <link rel="stylesheet" href="style.css">
+  <title>Characters - Sunflower Anime 🌻</title>
+  <meta name="description" content="Anime characters on Sunflower Anime.">
+  <link rel="stylesheet" href="../style.css">
 
   <style>
     .paginacao {
@@ -76,25 +76,25 @@
 
   <header class="topo">
     <div class="logo">
-      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
+      <img src="../imagens/logo.png" alt="Sunflower Anime Logo">
       <div>
         <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
-        <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+        <p>Theories, curiosities and news from the anime world</p>
       </div>
     </div>
   </header>
 
   <nav class="menu">
-    <a href="index.html" class="menu-link">Todos</a>
-    <a href="teorias.html" class="menu-link">Teorias</a>
-    <a href="animes.html" class="menu-link">Animes</a>
-    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
-    <a href="personagens.html" class="menu-link ativo">Personagens</a>
+    <a href="index.html" class="menu-link">All</a>
+    <a href="teorias.html" class="menu-link">Theories</a>
+    <a href="animes.html" class="menu-link">Anime</a>
+    <a href="curiosidades.html" class="menu-link">Curiosities</a>
+    <a href="personagens.html" class="menu-link ativo">Characters</a>
   </nav>
 
   <main class="container">
     <section class="principal" style="flex: 1;">
-      <h2>Personagens</h2>
+      <h2>Characters</h2>
       <div class="grid-posts" id="posts-personagens"></div>
       <div class="paginacao" id="paginacao-personagens"></div>
     </section>
@@ -103,9 +103,9 @@
   <footer class="rodape">
     <p>© 2026 Sunflower Anime 🌻</p>
     <p style="margin-top:10px;">
-      <a href="sobre.html" style="color:#f5a623; text-decoration:none;">Sobre</a> |
-      <a href="privacidade.html" style="color:#f5a623; text-decoration:none;">Política de Privacidade</a> |
-      <a href="termos.html" style="color:#f5a623; text-decoration:none;">Termos de Uso</a>
+      <a href="../sobre.html" style="color:#f5a623; text-decoration:none;">About</a> |
+      <a href="../privacidade.html" style="color:#f5a623; text-decoration:none;">Privacy Policy</a> |
+      <a href="../termos.html" style="color:#f5a623; text-decoration:none;">Terms of Use</a>
     </p>
   </footer>
 
@@ -226,9 +226,9 @@
         container.innerHTML = `
           <article class="card card-hover">
             <div class="conteudo-card">
-              <span class="tag">Aviso</span>
-              <h3>Nenhum personagem criado ainda</h3>
-              <p>Crie ou importe posts de personagens no admin 🔥</p>
+              <span class="tag">Notice</span>
+              <h3>No characters created yet</h3>
+              <p>Create or import character posts in the admin panel 🔥</p>
             </div>
           </article>
         `;
@@ -242,16 +242,16 @@
 
       personagensDaPagina.forEach(post => {
         const slug = post.slug ? post.slug : "#";
-        const titulo = post.titulo ? post.titulo : "Sem título";
+        const titulo = post.titulo ? post.titulo : "Untitled";
         const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
-        const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+        const descricao = post.descricao ? post.descricao : "Post created in the admin panel 🔥";
 
         container.innerHTML += `
           <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
             <article class="card card-hover">
               <img src="${imagem}" alt="${titulo}">
               <div class="conteudo-card">
-                <span class="tag">Personagens</span>
+                <span class="tag">Character</span>
                 <h3>${titulo}</h3>
                 <p>${descricao}</p>
               </div>
@@ -277,19 +277,19 @@
           });
         });
 
-        todosPersonagens = posts.filter(post => post.categoria === "personagens");
+        todosPersonagens = posts.filter(post => post.categoria === "personagens" && (post.idioma || "pt") === "en");
         paginaAtual = 1;
         renderizarPersonagensPaginados();
 
       } catch (error) {
-        console.error("Erro ao carregar personagens do Firebase:", error);
+        console.error("Error loading characters from Firebase:", error);
 
         container.innerHTML = `
           <article class="card card-hover">
             <div class="conteudo-card">
-              <span class="tag">Erro</span>
-              <h3>Erro ao carregar personagens</h3>
-              <p>Confira a conexão com o Firebase 🔥</p>
+              <span class="tag">Error</span>
+              <h3>Error loading characters</h3>
+              <p>Check the Firebase connection 🔥</p>
             </div>
           </article>
         `;

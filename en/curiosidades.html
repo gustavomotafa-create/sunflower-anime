@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curiosidades - Sunflower Anime 🌻</title>
-  <meta name="description" content="Curiosidades de anime.">
-  <link rel="stylesheet" href="style.css">
+  <title>Curiosities - Sunflower Anime 🌻</title>
+  <meta name="description" content="Anime curiosities.">
+  <link rel="stylesheet" href="../style.css">
 
   <style>
     .paginacao {
@@ -76,24 +76,25 @@
 
 <header class="topo">
   <div class="logo">
-    <img src="imagens/logo.png" alt="Logo">
+    <img src="../imagens/logo.png" alt="Logo">
     <div>
       <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
-      <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+      <p>Theories, curiosities and news from the anime world</p>
     </div>
   </div>
 </header>
 
 <nav class="menu">
-  <a href="index.html" class="menu-link">Todos</a>
-  <a href="teorias.html" class="menu-link">Teorias</a>
-  <a href="animes.html" class="menu-link">Animes</a>
-  <a href="curiosidades.html" class="menu-link ativo">Curiosidades</a>
+  <a href="index.html" class="menu-link">All</a>
+  <a href="teorias.html" class="menu-link">Theories</a>
+  <a href="animes.html" class="menu-link">Anime</a>
+  <a href="curiosidades.html" class="menu-link ativo">Curiosities</a>
+  <a href="personagens.html" class="menu-link">Characters</a>
 </nav>
 
 <main class="container">
   <section class="principal">
-    <h2>Curiosidades</h2>
+    <h2>Curiosities</h2>
 
     <div class="grid-posts" id="curiosidades-container"></div>
     <div class="paginacao" id="paginacao-curiosidades"></div>
@@ -222,9 +223,9 @@
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Aviso</span>
-            <h3>Nenhuma curiosidade criada ainda</h3>
-            <p>Crie posts no admin para eles aparecerem aqui 🔥</p>
+            <span class="tag">Notice</span>
+            <h3>No curiosities created yet</h3>
+            <p>Create posts in the admin panel so they can appear here 🔥</p>
           </div>
         </article>
       `;
@@ -238,14 +239,14 @@
 
     curiosidadesDaPagina.forEach(post => {
       const slug = post.slug ? post.slug : "#";
-      const descricao = post.descricao ? post.descricao : "Curiosidade criada pelo admin 🔥";
+      const descricao = post.descricao ? post.descricao : "Curiosity created in the admin panel 🔥";
 
       container.innerHTML += `
         <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
           <article class="card">
             <img src="${post.imagem}" alt="${post.titulo}">
             <div class="conteudo-card">
-              <span class="tag">Curiosidade</span>
+              <span class="tag">Curiosity</span>
               <h3>${post.titulo}</h3>
               <p>${descricao}</p>
             </div>
@@ -271,19 +272,19 @@
         });
       });
 
-      todasCuriosidades = posts.filter(post => post.categoria === "curiosidades");
+      todasCuriosidades = posts.filter(post => post.categoria === "curiosidades" && (post.idioma || "pt") === "en");
       paginaAtual = 1;
       renderizarCuriosidadesPaginadas();
 
     } catch (error) {
-      console.error("Erro ao carregar curiosidades do Firebase:", error);
+      console.error("Error loading curiosities from Firebase:", error);
 
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Erro</span>
-            <h3>Erro ao carregar curiosidades</h3>
-            <p>Confira a conexão com o Firebase 🔥</p>
+            <span class="tag">Error</span>
+            <h3>Error loading curiosities</h3>
+            <p>Check the Firebase connection 🔥</p>
           </div>
         </article>
       `;
