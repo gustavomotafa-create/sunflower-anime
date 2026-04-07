@@ -259,6 +259,52 @@
       flex-wrap: wrap;
     }
 
+    .seletor-idioma {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .idioma-btn {
+      flex: 1;
+      min-width: 140px;
+      background: #101010;
+      border: 1px solid #333;
+      color: #ddd;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+      margin-right: 0;
+    }
+
+    .idioma-btn:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+      border-color: #f5a623;
+    }
+
+    .idioma-btn.ativo {
+      background: linear-gradient(135deg, #f5a623, #ff7b00);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+    }
+
+    .campo-oculto {
+      display: none;
+    }
+
+    .idioma-aviso {
+      color: #bdbdbd;
+      font-size: 14px;
+      margin-top: -4px;
+      margin-bottom: 16px;
+    }
+
     @media (max-width: 700px) {
       .caixa {
         padding: 20px;
@@ -309,6 +355,15 @@
         <h3 id="tituloFormulario">Criar Post</h3>
         <p id="modoEdicao" class="modo-edicao" style="display: none;">Você está editando um post ✏️</p>
 
+        <div class="seletor-idioma">
+          <button type="button" class="idioma-btn ativo" id="btn-pt" onclick="selecionarIdioma('pt')">🇧🇷 Português</button>
+          <button type="button" class="idioma-btn" id="btn-en" onclick="selecionarIdioma('en')">🇺🇸 English</button>
+        </div>
+
+        <p class="idioma-aviso" id="idiomaAviso">Você está criando conteúdo para o site em português.</p>
+
+        <input type="hidden" id="idioma" value="pt">
+
         <input type="text" id="titulo" placeholder="Título do post">
 
         <select id="categoria">
@@ -347,6 +402,12 @@
           <option value="personagens">Personagens</option>
         </select>
 
+        <select id="filtroIdioma" onchange="mostrarPosts()">
+          <option value="todos">Todos os idiomas</option>
+          <option value="pt">Português</option>
+          <option value="en">English</option>
+        </select>
+
         <select id="filtroExibicao" onchange="mostrarPosts()">
           <option value="todos">Todos os lugares</option>
           <option value="normal">Últimos posts</option>
@@ -380,6 +441,47 @@
     let editandoDataOriginal = null;
     let editandoCriadoEmOriginal = null;
     window.postsRenderizados = [];
+
+    const textosPorIdioma = {
+      pt: {
+        aviso: "Você está criando conteúdo para o site em português.",
+        tituloPlaceholder: "Título do post",
+        descricaoPlaceholder: "Descrição do post",
+        publicar: "Publicar 🚀",
+        editar: "Salvar alterações 💾",
+        criando: "Criar Post",
+        editando: "Editar Post"
+      },
+      en: {
+        aviso: "You are creating content for the English version of the site.",
+        tituloPlaceholder: "Post title",
+        descricaoPlaceholder: "Post description",
+        publicar: "Publish 🚀",
+        editar: "Save changes 💾",
+        criando: "Create Post",
+        editando: "Edit Post"
+      }
+    };
+
+    function aplicarTextosIdioma(idiomaAtual) {
+      const textos = textosPorIdioma[idiomaAtual];
+
+      document.getElementById("idioma").value = idiomaAtual;
+      document.getElementById("idiomaAviso").textContent = textos.aviso;
+      document.getElementById("titulo").placeholder = textos.tituloPlaceholder;
+      document.getElementById("descricao").placeholder = textos.descricaoPlaceholder;
+
+      const emEdicao = !!editandoDocId;
+      document.getElementById("tituloFormulario").textContent = emEdicao ? textos.editando : textos.criando;
+      document.getElementById("botaoSalvar").textContent = emEdicao ? textos.editar : textos.publicar;
+
+      document.getElementById("btn-pt").classList.toggle("ativo", idiomaAtual === "pt");
+      document.getElementById("btn-en").classList.toggle("ativo", idiomaAtual === "en");
+    }
+
+    window.selecionarIdioma = function (idioma) {
+      aplicarTextosIdioma(idioma);
+    };
 
     window.login = async function () {
       const email = document.getElementById("email").value.trim();
@@ -438,20 +540,21 @@
       document.getElementById("descricao").value = "";
       document.getElementById("categoria").value = "teorias";
       document.getElementById("exibicao").value = "normal";
-      document.getElementById("titulo").focus();
 
       editandoDocId = null;
       editandoDataOriginal = null;
       editandoCriadoEmOriginal = null;
-      document.getElementById("tituloFormulario").textContent = "Criar Post";
       document.getElementById("modoEdicao").style.display = "none";
-      document.getElementById("botaoSalvar").textContent = "Publicar 🚀";
       document.getElementById("botaoCancelar").style.display = "none";
+
+      aplicarTextosIdioma(document.getElementById("idioma").value || "pt");
+      document.getElementById("titulo").focus();
     }
 
     window.salvarPost = async function () {
       const titulo = document.getElementById("titulo").value.trim();
       const categoria = document.getElementById("categoria").value;
+      const idioma = document.getElementById("idioma").value;
       const exibicao = document.getElementById("exibicao").value;
       const imagem = document.getElementById("imagem").value.trim();
       const descricao = document.getElementById("descricao").value.trim();
@@ -464,6 +567,7 @@
       const postData = {
         titulo: titulo,
         categoria: categoria,
+        idioma: idioma,
         exibicao: exibicao,
         imagem: imagem,
         descricao: descricao,
@@ -496,6 +600,7 @@
       lista.innerHTML = "";
 
       const filtroCategoria = document.getElementById("filtroCategoria").value;
+      const filtroIdioma = document.getElementById("filtroIdioma").value;
       const filtroExibicao = document.getElementById("filtroExibicao").value;
 
       let posts = [];
@@ -503,9 +608,12 @@
       try {
         const snapshot = await getDocs(collection(db, "posts"));
         snapshot.forEach((item) => {
+          const dados = item.data();
+
           posts.push({
             id: item.id,
-            ...item.data()
+            ...dados,
+            idioma: dados.idioma || "pt"
           });
         });
       } catch (error) {
@@ -516,6 +624,10 @@
 
       if (filtroCategoria !== "todos") {
         posts = posts.filter(post => post.categoria === filtroCategoria);
+      }
+
+      if (filtroIdioma !== "todos") {
+        posts = posts.filter(post => (post.idioma || "pt") === filtroIdioma);
       }
 
       if (filtroExibicao !== "todos") {
@@ -534,6 +646,7 @@
 
       posts.forEach((post, index) => {
         const exibicaoTexto = (post.exibicao || "normal") === "mais-vistos" ? "Mais vistos" : "Últimos posts";
+        const idiomaTexto = (post.idioma || "pt") === "en" ? "English" : "Português";
         const views = post.views || 0;
 
         lista.innerHTML += `
@@ -541,6 +654,7 @@
             <img src="${post.imagem}" alt="${post.titulo}">
             <div class="post-info">
               <span class="tag">${post.categoria}</span>
+              <span class="tag-secundaria">${idiomaTexto}</span>
               <span class="tag-secundaria">${exibicaoTexto}</span>
               <p><strong>${post.titulo}</strong></p>
               <p class="meta">📅 ${post.data || ""} • 👁️ ${views} visualizações</p>
@@ -570,10 +684,10 @@
       editandoDataOriginal = post.data || gerarDataAtual();
       editandoCriadoEmOriginal = post.criadoEm || Date.now();
 
-      document.getElementById("tituloFormulario").textContent = "Editar Post";
       document.getElementById("modoEdicao").style.display = "block";
-      document.getElementById("botaoSalvar").textContent = "Salvar alterações 💾";
       document.getElementById("botaoCancelar").style.display = "inline-block";
+
+      aplicarTextosIdioma(post.idioma || "pt");
 
       window.scrollTo({
         top: 0,
@@ -611,6 +725,7 @@
         {
           titulo: "Gojo pode voltar?",
           categoria: "teorias",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/gojo.jpg",
           descricao: "Uma teoria sobre Jujutsu Kaisen.",
@@ -622,6 +737,7 @@
         {
           titulo: "Kurama foi a melhor parceria dos animes?",
           categoria: "curiosidades",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/kurama.jpg",
           descricao: "Uma curiosidade sobre a relação entre Naruto e Kurama.",
@@ -633,6 +749,7 @@
         {
           titulo: "O verdadeiro sonho do Luffy",
           categoria: "animes",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/solo.jpg",
           descricao: "O que Oda pode estar escondendo até hoje.",
@@ -644,6 +761,7 @@
         {
           titulo: "Roronoa Zoro",
           categoria: "personagens",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/zoro.jpg",
           descricao: "Espadachim dos Chapéus de Palha e um dos personagens mais brabos de One Piece.",
@@ -655,6 +773,7 @@
         {
           titulo: "Itachi Uchiha",
           categoria: "personagens",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/itachi.jpg",
           descricao: "Um dos personagens mais profundos e marcantes de Naruto.",
@@ -666,6 +785,7 @@
         {
           titulo: "Satoru Gojo",
           categoria: "personagens",
+          idioma: "pt",
           exibicao: "normal",
           imagem: "imagens/gojo2.jpg",
           descricao: "O feiticeiro mais apelão e carismático de Jujutsu Kaisen.",
@@ -677,6 +797,7 @@
         {
           titulo: "Solo Leveling terá novo auge?",
           categoria: "animes",
+          idioma: "pt",
           exibicao: "mais-vistos",
           imagem: "imagens/solo.jpg",
           descricao: "Teoria rápida.",
@@ -688,6 +809,7 @@
         {
           titulo: "Tokyo Revengers ainda pode surpreender?",
           categoria: "curiosidades",
+          idioma: "pt",
           exibicao: "mais-vistos",
           imagem: "imagens/tokyo.jpg",
           descricao: "Curiosidade.",
@@ -729,6 +851,8 @@
         alert("Erro ao importar posts antigos: " + error.message);
       }
     };
+
+    aplicarTextosIdioma("pt");
   </script>
 
 </body>

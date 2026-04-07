@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post - Sunflower Anime</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <style>
     .pagina-post {
       max-width: 900px;
@@ -56,23 +56,23 @@
 
   <header class="topo">
     <div class="logo">
-      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
+      <img src="../imagens/logo.png" alt="Sunflower Anime Logo">
       <div>
         <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
-        <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+        <p>Theories, curiosities and news from the anime world</p>
       </div>
     </div>
   </header>
 
   <nav class="menu">
-    <a href="index.html" class="menu-link">Todos</a>
-    <a href="teorias.html" class="menu-link">Teorias</a>
-    <a href="animes.html" class="menu-link">Animes</a>
-    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+    <a href="index.html" class="menu-link">All</a>
+    <a href="teorias.html" class="menu-link">Theories</a>
+    <a href="animes.html" class="menu-link">Anime</a>
+    <a href="curiosidades.html" class="menu-link">Curiosities</a>
   </nav>
 
   <main class="pagina-post">
-    <a href="index.html" class="voltar-post">← Voltar para a página inicial</a>
+    <a href="index.html" class="voltar-post">← Back to home page</a>
     <div id="post-container"></div>
   </main>
 
@@ -105,8 +105,8 @@
       if (!slug) {
         container.innerHTML = `
           <article class="post-completo">
-            <h1>Post não encontrado 😅</h1>
-            <p class="texto-post">Esse link está incompleto ou inválido.</p>
+            <h1>Post not found 😅</h1>
+            <p class="texto-post">This link is incomplete or invalid.</p>
           </article>
         `;
         return;
@@ -117,7 +117,7 @@
         let post = null;
         let postId = null;
 
-        const idiomaPagina = window.location.pathname.includes("/en") ? "en" : "pt";
+        const idiomaPagina = "en";
 
         snapshot.forEach((item) => {
           const dados = item.data();
@@ -138,49 +138,38 @@
 
             post.views = (post.views || 0) + 1;
           } catch (erroViews) {
-            console.error("Erro ao somar view:", erroViews);
+            console.error("Error counting view:", erroViews);
           }
-
-          const ehPaginaEN = idiomaPagina === "en";
 
           container.innerHTML = `
             <article class="post-completo">
               <span class="tag">${post.categoria || "Post"}</span>
-              <h1>${post.titulo || (ehPaginaEN ? "Untitled" : "Sem título")}</h1>
+              <h1>${post.titulo || "Untitled"}</h1>
               <p class="meta-post">
-                📅 ${post.data || (ehPaginaEN ? "No date" : "Sem data")} • 
-                👁️ ${post.views || 0} ${ehPaginaEN ? "views" : "visualizações"}
+                📅 ${post.data || "No date"} • 👁️ ${post.views || 0} views
               </p>
               <img src="${post.imagem || ""}" alt="${post.titulo || "Post"}">
-              <div class="texto-post">${post.descricao || (ehPaginaEN ? "No description." : "Sem descrição.")}</div>
+              <div class="texto-post">${post.descricao || "No description."}</div>
             </article>
           `;
         } else {
-          const ehPaginaEN = idiomaPagina === "en";
-
           container.innerHTML = `
             <article class="post-completo">
-              <h1>${ehPaginaEN ? "Post not found 😅" : "Post não encontrado 😅"}</h1>
+              <h1>Post not found 😅</h1>
               <p class="texto-post">
-                ${ehPaginaEN
-                  ? "This post does not exist, was deleted, or the link is wrong."
-                  : "Esse post não existe, foi apagado ou o link está errado."}
+                This post does not exist, was deleted, or the link is wrong.
               </p>
             </article>
           `;
         }
       } catch (error) {
-        console.error("Erro ao carregar post do Firebase:", error);
-
-        const ehPaginaEN = window.location.pathname.includes("/en");
+        console.error("Error loading post:", error);
 
         container.innerHTML = `
           <article class="post-completo">
-            <h1>${ehPaginaEN ? "Loading error 😵" : "Erro ao carregar 😵"}</h1>
+            <h1>Loading error 😵</h1>
             <p class="texto-post">
-              ${ehPaginaEN
-                ? "Could not load the post right now. Check the Firebase connection."
-                : "Não foi possível carregar o post agora. Verifique a conexão com o Firebase."}
+              Could not load the post right now. Check the Firebase connection.
             </p>
           </article>
         `;

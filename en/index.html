@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- VERIFICAÇÃO GOOGLE -->
+  <!-- GOOGLE VERIFICATION -->
   <meta name="google-site-verification" content="Y7YVy0esc_Sg9yiZk378LvfwmOgA-IGPBEYynmP5_DA" />
 
   <title>Sunflower Anime 🌻</title>
-  <meta name="description" content="Teorias, curiosidades e notícias do mundo dos animes.">
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Anime theories, curiosities, characters and news from the anime world.">
+  <link rel="stylesheet" href="../style.css">
   <style>
 
     .intro-site {
@@ -174,31 +174,31 @@
 
   <header class="topo">
     <div class="logo">
-      <img src="imagens/logo.png" alt="Logo Sunflower Anime">
+      <img src="../imagens/logo.png" alt="Sunflower Anime Logo">
       <div>
         <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
-        <p>Teorias, curiosidades e notícias do mundo dos animes</p>
+        <p>Theories, curiosities and news from the anime world</p>
       </div>
     </div>
   </header>
 
- <div id="login-container" style="display:none; text-align:center; margin:10px;">
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="senha" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-  <button onclick="logout()">Sair</button>
-</div>
+  <div id="login-container" style="display:none; text-align:center; margin:10px;">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 
   <div id="admin-area" style="display:none; text-align:center;">
-    <h2>Área Admin 🔒</h2>
+    <h2>Admin Area 🔒</h2>
   </div>
 
   <nav class="menu">
-    <a href="index.html" class="menu-link ativo">Todos</a>
-    <a href="teorias.html" class="menu-link">Teorias</a>
-    <a href="animes.html" class="menu-link">Animes</a>
-    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
-    <a href="personagens.html" class="menu-link">Personagens</a>
+    <a href="index.html" class="menu-link ativo">All</a>
+    <a href="teorias.html" class="menu-link">Theories</a>
+    <a href="animes.html" class="menu-link">Anime</a>
+    <a href="curiosidades.html" class="menu-link">Curiosities</a>
+    <a href="personagens.html" class="menu-link">Characters</a>
   </nav>
 
   <main class="container">
@@ -206,24 +206,25 @@
     <section class="principal">
 
       <section class="intro-site">
-        <h2>Qual é o intuito da página?</h2>
+        <h2>What is the purpose of this page?</h2>
         <p>
-          O Sunflower Anime é um espaço feito para quem curte o universo dos animes e gosta de acompanhar
-          teorias, curiosidades, personagens marcantes e novidades em um só lugar. A ideia é reunir conteúdos
-          organizados, fáceis de explorar e feitos com carinho pra quem realmente ama esse mundo otaku 🌻
+          Sunflower Anime is a space made for people who love the anime universe and enjoy following
+          theories, curiosities, memorable characters and news all in one place. The goal is to bring
+          together organized content, easy to explore and made with care for those who truly love this
+          otaku world 🌻
         </p>
       </section>
 
-      <h2>Destaque</h2>
+      <h2>Featured</h2>
 
       <div id="destaque-container"></div>
 
       <div class="carousel-header">
-        <h2>Personagens</h2>
+        <h2>Characters</h2>
 
         <div class="carousel-controles">
-          <button class="carousel-btn" id="btn-esquerda" aria-label="Voltar personagens">‹</button>
-          <button class="carousel-btn" id="btn-direita" aria-label="Avançar personagens">›</button>
+          <button class="carousel-btn" id="btn-esquerda" aria-label="Previous characters">‹</button>
+          <button class="carousel-btn" id="btn-direita" aria-label="Next characters">›</button>
         </div>
       </div>
 
@@ -231,7 +232,7 @@
         <div class="carousel-trilho" id="carousel-personagens"></div>
       </div>
 
-      <h2 style="margin-top: 30px;">Últimos posts</h2>
+      <h2 style="margin-top: 30px;">Latest Posts</h2>
 
       <div class="grid-posts" id="posts-dinamicos"></div>
       <div class="paginacao" id="paginacao-posts"></div>
@@ -240,7 +241,7 @@
 
     <aside class="lateral">
 
-      <h2>Mais vistos</h2>
+      <h2>Most Viewed</h2>
 
       <div id="mais-vistos-container"></div>
 
@@ -251,29 +252,15 @@
   <footer class="rodape">
     <p>© 2026 Sunflower Anime 🌻</p>
     <p style="margin-top:10px;">
-      <a href="sobre.html" style="color:#f5a623; text-decoration:none;">Sobre</a> |
-      <a href="privacidade.html" style="color:#f5a623; text-decoration:none;">Política de Privacidade</a> |
-      <a href="termos.html" style="color:#f5a623; text-decoration:none;">Termos de Uso</a>
+      <a href="../sobre.html" style="color:#f5a623; text-decoration:none;">About</a> |
+      <a href="../privacidade.html" style="color:#f5a623; text-decoration:none;">Privacy Policy</a> |
+      <a href="../termos.html" style="color:#f5a623; text-decoration:none;">Terms of Use</a> |
+      <a href="../index.html" style="color:#f5a623; text-decoration:none;" onclick="localStorage.setItem('sunflower_idioma', 'pt')">🇧🇷 Português</a>
     </p>
   </footer>
 
   <script>
-    (function () {
-      const idiomaSalvo = localStorage.getItem("sunflower_idioma");
-      const idiomaNavegador = (navigator.language || navigator.userLanguage || "").toLowerCase();
-      const ehIngles = idiomaNavegador.startsWith("en");
-
-      if (idiomaSalvo === "pt") return;
-
-      if (idiomaSalvo === "en") {
-        window.location.href = "/en/index.html";
-        return;
-      }
-
-      if (ehIngles) {
-        window.location.href = "/en/index.html";
-      }
-    })();
+    localStorage.setItem("sunflower_idioma", "en");
   </script>
 
   <script type="module">
@@ -405,9 +392,9 @@
         destaqueContainer.innerHTML = `
           <article class="card-destaque card-hover">
             <div class="conteudo-card">
-              <span class="tag">Aviso</span>
-              <h3>Nenhum destaque ainda</h3>
-              <p>Crie posts no admin para aparecer um destaque automático 🔥</p>
+              <span class="tag">Notice</span>
+              <h3>No featured post yet</h3>
+              <p>Create posts in the admin panel to show an automatic featured post 🔥</p>
             </div>
           </article>
         `;
@@ -416,8 +403,8 @@
 
       const slug = post.slug ? post.slug : "#";
       const categoria = post.categoria ? post.categoria : "Post";
-      const titulo = post.titulo ? post.titulo : "Sem título";
-      const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+      const titulo = post.titulo ? post.titulo : "Untitled";
+      const descricao = post.descricao ? post.descricao : "Post created in the admin panel 🔥";
       const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/800x400";
 
       destaqueContainer.innerHTML = `
@@ -443,9 +430,9 @@
         postsDinamicos.innerHTML = `
           <article class="card card-hover">
             <div class="conteudo-card">
-              <span class="tag">Aviso</span>
-              <h3>Nenhum post criado ainda</h3>
-              <p>Crie posts no admin para eles aparecerem aqui 🔥</p>
+              <span class="tag">Notice</span>
+              <h3>No posts created yet</h3>
+              <p>Create posts in the admin panel so they can appear here 🔥</p>
             </div>
           </article>
         `;
@@ -461,8 +448,8 @@
       postsDaPagina.forEach(post => {
         const slug = post.slug ? post.slug : "#";
         const categoria = post.categoria ? post.categoria : "Post";
-        const titulo = post.titulo ? post.titulo : "Sem título";
-        const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+        const titulo = post.titulo ? post.titulo : "Untitled";
+        const descricao = post.descricao ? post.descricao : "Post created in the admin panel 🔥";
         const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
 
         postsDinamicos.innerHTML += `
@@ -497,16 +484,16 @@
         });
 
         const personagens = posts
-          .filter(post => post.categoria === "personagens" && (post.idioma || "pt") === "pt")
+          .filter(post => post.categoria === "personagens" && (post.idioma || "pt") === "en")
           .slice(0, 10);
 
         if (personagens.length === 0) {
           trilho.innerHTML = `
             <div class="card carousel-card">
               <div class="conteudo-card">
-                <span class="tag">Aviso</span>
-                <h3>Nenhum personagem ainda</h3>
-                <p>Crie no admin 🔥</p>
+                <span class="tag">Notice</span>
+                <h3>No characters yet</h3>
+                <p>Create them in the admin panel 🔥</p>
               </div>
             </div>
           `;
@@ -517,8 +504,8 @@
 
         personagens.forEach(post => {
           const slug = post.slug ? post.slug : "#";
-          const titulo = post.titulo ? post.titulo : "Sem título";
-          const descricao = post.descricao ? post.descricao : "Personagem criado pelo admin 🔥";
+          const titulo = post.titulo ? post.titulo : "Untitled";
+          const descricao = post.descricao ? post.descricao : "Character created in the admin panel 🔥";
           const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/400x250";
 
           trilho.innerHTML += `
@@ -526,7 +513,7 @@
               <article class="card card-hover">
                 <img src="${imagem}" alt="${titulo}">
                 <div class="conteudo-card">
-                  <span class="tag">Personagem</span>
+                  <span class="tag">Character</span>
                   <h3>${titulo}</h3>
                   <p>${descricao}</p>
                 </div>
@@ -536,13 +523,13 @@
         });
 
       } catch (error) {
-        console.error("Erro ao carregar carrossel de personagens:", error);
+        console.error("Error loading character carousel:", error);
         trilho.innerHTML = `
           <div class="card carousel-card">
             <div class="conteudo-card">
-              <span class="tag">Erro</span>
-              <h3>Falha no carrossel</h3>
-              <p>Confira o Firebase 🔥</p>
+              <span class="tag">Error</span>
+              <h3>Carousel failed</h3>
+              <p>Check Firebase 🔥</p>
             </div>
           </div>
         `;
@@ -566,7 +553,7 @@
         snapshot.forEach((item) => {
           const dados = item.data();
 
-          if ((dados.idioma || "pt") !== "pt") return;
+          if ((dados.idioma || "pt") !== "en") return;
 
           posts.push({
             id: item.id,
@@ -576,14 +563,14 @@
           });
         });
       } catch (error) {
-        console.error("Erro ao carregar posts do Firebase:", error);
+        console.error("Error loading posts from Firebase:", error);
 
         postsDinamicos.innerHTML = `
           <article class="card card-hover">
             <div class="conteudo-card">
-              <span class="tag">Erro</span>
-              <h3>Não foi possível carregar os posts</h3>
-              <p>Verifique a conexão com o Firebase 🔥</p>
+              <span class="tag">Error</span>
+              <h3>Could not load posts</h3>
+              <p>Check the Firebase connection 🔥</p>
             </div>
           </article>
         `;
@@ -591,9 +578,9 @@
         maisVistosContainer.innerHTML = `
           <div class="mini-post card-hover">
             <div class="mini-post-info">
-              <span class="tag">Erro</span>
-              <h4>Falha ao carregar</h4>
-              <p>Confira a configuração do Firebase</p>
+              <span class="tag">Error</span>
+              <h4>Loading failed</h4>
+              <p>Check the Firebase configuration</p>
             </div>
           </div>
         `;
@@ -614,9 +601,9 @@
         maisVistosContainer.innerHTML = `
           <div class="mini-post card-hover">
             <div class="mini-post-info">
-              <span class="tag">Aviso</span>
-              <h4>Nenhum post em mais vistos</h4>
-              <p>Abra alguns posts para gerar visualizações 😎</p>
+              <span class="tag">Notice</span>
+              <h4>No most viewed posts yet</h4>
+              <p>Open some posts to generate views 😎</p>
             </div>
           </div>
         `;
@@ -624,8 +611,8 @@
         postsMaisVistos.forEach(post => {
           const slug = post.slug ? post.slug : "#";
           const categoria = post.categoria ? post.categoria : "Post";
-          const titulo = post.titulo ? post.titulo : "Sem título";
-          const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+          const titulo = post.titulo ? post.titulo : "Untitled";
+          const descricao = post.descricao ? post.descricao : "Post created in the admin panel 🔥";
           const imagem = post.imagem ? post.imagem : "https://via.placeholder.com/300x200";
           const views = post.views || 0;
 
@@ -637,7 +624,7 @@
                   <span class="tag">${categoria}</span>
                   <h4>${titulo}</h4>
                   <p>${descricao}</p>
-                  <p class="mini-post-views">👁️ ${views} visualizações</p>
+                  <p class="mini-post-views">👁️ ${views} views</p>
                 </div>
               </div>
             </a>
@@ -652,20 +639,20 @@
 
       try {
         await signInWithEmailAndPassword(auth, email, senha);
-        alert("Logado com sucesso 😎");
-        window.location.href = "admin.html";
+        alert("Logged in successfully 😎");
+        window.location.href = "../admin.html";
       } catch (error) {
-        alert("Erro: " + error.message);
+        alert("Error: " + error.message);
       }
     };
 
     window.logout = async function () {
       try {
         await signOut(auth);
-        alert("Saiu da conta 👌");
+        alert("Logged out 👌");
         window.location.href = "index.html";
       } catch (error) {
-        alert("Erro ao sair: " + error.message);
+        alert("Error while logging out: " + error.message);
       }
     };
 
