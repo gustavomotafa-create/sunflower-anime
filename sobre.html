@@ -4,48 +4,162 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sobre - Sunflower Anime</title>
+  <meta name="description" content="Saiba mais sobre o Sunflower Anime." />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .pagina-topo {
+      background: #000;
+      border-bottom: 2px solid #f5a623;
+      padding: 20px 24px;
+    }
+
+    .pagina-topo-conteudo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pagina-topo-logo {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pagina-topo-texto h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #fff;
+    }
+
+    .pagina-topo-texto p {
+      margin: 6px 0 0;
+      color: #ddd;
+      font-size: 1rem;
+    }
+
+    .pagina-info-wrap {
+      max-width: 1100px;
+      margin: 34px auto;
+      padding: 0 16px;
+    }
+
+    .pagina-info {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .pagina-info h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .pagina-info p {
+      color: #d0d0d0;
+      line-height: 1.9;
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+    }
+
+    .rodape-links {
+      margin-top: 10px;
+    }
+
+    .rodape-links a {
+      color: #f5a623;
+      text-decoration: none;
+    }
+
+    .rodape-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .pagina-topo-conteudo {
+        align-items: flex-start;
+      }
+
+      .pagina-topo-logo {
+        width: 56px;
+        height: 56px;
+      }
+
+      .pagina-topo-texto h1 {
+        font-size: 1.8rem;
+      }
+
+      .pagina-info {
+        padding: 22px 18px;
+      }
+
+      .pagina-info h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="topo-site">
-    <div class="logo-area">
-      <img src="imagens/logo.png" alt="Logo Sunflower Anime" class="logo" />
-      <div>
-        <h1><span class="logo-destaque">Sunflower</span> Anime 🌻</h1>
+
+  <header class="pagina-topo">
+    <div class="pagina-topo-conteudo">
+      <img src="imagens/logo.png" alt="Logo Sunflower Anime" class="pagina-topo-logo" />
+      <div class="pagina-topo-texto">
+        <h1><span class="laranja">Sunflower</span> Anime 🌻</h1>
         <p>Teorias, curiosidades e notícias do mundo dos animes</p>
       </div>
     </div>
   </header>
 
-  <main class="container" style="padding: 40px 20px;">
-    <section class="card">
+  <nav class="menu">
+    <a href="index.html" class="menu-link">Início</a>
+    <a href="teorias.html" class="menu-link">Teorias</a>
+    <a href="animes.html" class="menu-link">Animes</a>
+    <a href="curiosidades.html" class="menu-link">Curiosidades</a>
+    <a href="personagens.html" class="menu-link">Personagens</a>
+  </nav>
+
+  <main class="pagina-info-wrap">
+    <section class="pagina-info">
       <h2>Sobre o Sunflower Anime</h2>
+
       <p>
-        O Sunflower Anime é um espaço criado para fãs de anime que gostam de acompanhar
-        teorias, curiosidades, personagens marcantes e conteúdos organizados em um só lugar.
+        O Sunflower Anime é um espaço criado para fãs de anime que gostam de acompanhar teorias,
+        curiosidades, personagens marcantes e conteúdos organizados em um só lugar.
       </p>
+
       <p>
-        Nosso objetivo é compartilhar informações de forma simples, agradável e com carinho
-        para quem realmente ama esse universo otaku.
+        Nosso objetivo é compartilhar informações de forma simples, agradável e com carinho para quem
+        realmente ama esse universo otaku.
       </p>
+
       <p>
-        Aqui você pode encontrar conteúdos sobre animes populares, personagens conhecidos,
-        comparações, fatos curiosos e novidades do mundo anime.
+        Aqui você pode encontrar conteúdos sobre animes populares, personagens conhecidos, comparações,
+        fatos curiosos e novidades do mundo anime.
       </p>
+
       <p>
-        O site foi desenvolvido para oferecer uma navegação fácil, visual agradável e conteúdo
-        pensado para quem gosta de explorar esse universo de forma prática.
+        O site foi desenvolvido para oferecer uma navegação fácil, visual agradável e conteúdo pensado
+        para quem gosta de explorar esse universo de forma prática.
       </p>
     </section>
   </main>
 
-  <footer class="rodape-site" style="padding: 20px; text-align: center;">
-    <p>&copy; 2026 Sunflower Anime - Todos os direitos reservados.</p>
-    <p>
+  <footer class="rodape" style="text-align:center; padding:20px;">
+    <p>© 2026 Sunflower Anime - Todos os direitos reservados.</p>
+    <p class="rodape-links">
       <a href="index.html">Início</a> |
       <a href="sobre.html">Sobre</a> |
-      <a href="privacidade.html">Política de Privacidade</a>
+      <a href="privacidade.html">Política de Privacidade</a> |
+      <a href="termos.html">Termos de Uso</a>
     </p>
   </footer>
+
 </body>
 </html>
