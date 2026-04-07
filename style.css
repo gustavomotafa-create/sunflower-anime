@@ -393,3 +393,10 @@ img:hover {
     font-size: 32px;
   }
 }
+
+/* ESCONDER LOGIN / ADMIN DO SITE */
+#login-container,
+.admin-area,
+#admin-area {
+  display: none !important;
+}
