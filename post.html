@@ -50,6 +50,56 @@
       line-height: 1.7;
       white-space: pre-line;
     }
+
+    .language-switch-top {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 0 auto 18px;
+      max-width: 900px;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .language-switch-top a,
+    .language-switch-top span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      background: #171719;
+      color: white;
+      border: 1px solid #2a2a2d;
+      transition: 0.2s ease;
+    }
+
+    .language-switch-top a:hover {
+      background: #f5a623;
+      color: #111;
+    }
+
+    .language-switch-top .ativo {
+      background: #f5a623;
+      color: #111;
+      border-color: #f5a623;
+    }
+
+    .language-switch-top .desativado {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .language-status {
+      max-width: 900px;
+      margin: 0 auto 18px;
+      padding: 0 20px;
+      color: #aaa;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +113,13 @@
       </div>
     </div>
   </header>
+
+  <div class="language-switch-top" id="language-switch">
+    <span class="ativo">🇧🇷 Português</span>
+    <span class="desativado">🇺🇸 English</span>
+  </div>
+
+  <div class="language-status" id="language-status"></div>
 
   <nav class="menu">
     <a href="index.html" class="menu-link">Todos</a>
@@ -100,6 +157,8 @@
     const slug = params.get("slug");
 
     const container = document.getElementById("post-container");
+    const languageSwitch = document.getElementById("language-switch");
+    const languageStatus = document.getElementById("language-status");
 
     async function carregarPost() {
       if (!slug) {
@@ -116,19 +175,34 @@
         const snapshot = await getDocs(collection(db, "posts"));
         let post = null;
         let postId = null;
-
-        const idiomaPagina = window.location.pathname.includes("/en") ? "en" : "pt";
+        let versaoEN = null;
 
         snapshot.forEach((item) => {
           const dados = item.data();
 
-          if (dados.slug === slug) {
-            if ((dados.idioma || "pt") !== idiomaPagina) return;
-
+          if (dados.slug === slug && (dados.idioma || "pt") === "pt") {
             post = dados;
             postId = item.id;
           }
+
+          if (dados.slug === slug && (dados.idioma || "pt") === "en") {
+            versaoEN = dados;
+          }
         });
+
+        if (versaoEN) {
+          languageSwitch.innerHTML = `
+            <span class="ativo">🇧🇷 Português</span>
+            <a href="/en/post.html?slug=${encodeURIComponent(slug)}" onclick="localStorage.setItem('sunflower_idioma', 'en')">🇺🇸 English</a>
+          `;
+          languageStatus.textContent = "Este post também possui versão em inglês.";
+        } else {
+          languageSwitch.innerHTML = `
+            <span class="ativo">🇧🇷 Português</span>
+            <span class="desativado">🇺🇸 English</span>
+          `;
+          languageStatus.textContent = "A versão em inglês deste post ainda não está disponível.";
+        }
 
         if (post) {
           try {
@@ -141,47 +215,29 @@
             console.error("Erro ao somar view:", erroViews);
           }
 
-          const ehPaginaEN = idiomaPagina === "en";
-
           container.innerHTML = `
             <article class="post-completo">
               <span class="tag">${post.categoria || "Post"}</span>
-              <h1>${post.titulo || (ehPaginaEN ? "Untitled" : "Sem título")}</h1>
-              <p class="meta-post">
-                📅 ${post.data || (ehPaginaEN ? "No date" : "Sem data")} • 
-                👁️ ${post.views || 0} ${ehPaginaEN ? "views" : "visualizações"}
-              </p>
+              <h1>${post.titulo || "Sem título"}</h1>
+              <p class="meta-post">📅 ${post.data || "Sem data"} • 👁️ ${post.views || 0} visualizações</p>
               <img src="${post.imagem || ""}" alt="${post.titulo || "Post"}">
-              <div class="texto-post">${post.descricao || (ehPaginaEN ? "No description." : "Sem descrição.")}</div>
+              <div class="texto-post">${post.descricao || "Sem descrição."}</div>
             </article>
           `;
         } else {
-          const ehPaginaEN = idiomaPagina === "en";
-
           container.innerHTML = `
             <article class="post-completo">
-              <h1>${ehPaginaEN ? "Post not found 😅" : "Post não encontrado 😅"}</h1>
-              <p class="texto-post">
-                ${ehPaginaEN
-                  ? "This post does not exist, was deleted, or the link is wrong."
-                  : "Esse post não existe, foi apagado ou o link está errado."}
-              </p>
+              <h1>Post não encontrado 😅</h1>
+              <p class="texto-post">Esse post não existe, foi apagado ou o link está errado.</p>
             </article>
           `;
         }
       } catch (error) {
         console.error("Erro ao carregar post do Firebase:", error);
-
-        const ehPaginaEN = window.location.pathname.includes("/en");
-
         container.innerHTML = `
           <article class="post-completo">
-            <h1>${ehPaginaEN ? "Loading error 😵" : "Erro ao carregar 😵"}</h1>
-            <p class="texto-post">
-              ${ehPaginaEN
-                ? "Could not load the post right now. Check the Firebase connection."
-                : "Não foi possível carregar o post agora. Verifique a conexão com o Firebase."}
-            </p>
+            <h1>Erro ao carregar 😵</h1>
+            <p class="texto-post">Não foi possível carregar o post agora. Verifique a conexão com o Firebase.</p>
           </article>
         `;
       }

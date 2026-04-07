@@ -50,6 +50,56 @@
       line-height: 1.7;
       white-space: pre-line;
     }
+
+    .language-switch-top {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 0 auto 18px;
+      max-width: 900px;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .language-switch-top a,
+    .language-switch-top span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      background: #171719;
+      color: white;
+      border: 1px solid #2a2a2d;
+      transition: 0.2s ease;
+    }
+
+    .language-switch-top a:hover {
+      background: #f5a623;
+      color: #111;
+    }
+
+    .language-switch-top .ativo {
+      background: #f5a623;
+      color: #111;
+      border-color: #f5a623;
+    }
+
+    .language-switch-top .desativado {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .language-status {
+      max-width: 900px;
+      margin: 0 auto 18px;
+      padding: 0 20px;
+      color: #aaa;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +113,13 @@
       </div>
     </div>
   </header>
+
+  <div class="language-switch-top" id="language-switch">
+    <span class="desativado">🇧🇷 Português</span>
+    <span class="ativo">🇺🇸 English</span>
+  </div>
+
+  <div class="language-status" id="language-status"></div>
 
   <nav class="menu">
     <a href="index.html" class="menu-link">All</a>
@@ -100,6 +157,8 @@
     const slug = params.get("slug");
 
     const container = document.getElementById("post-container");
+    const languageSwitch = document.getElementById("language-switch");
+    const languageStatus = document.getElementById("language-status");
 
     async function carregarPost() {
       if (!slug) {
@@ -116,19 +175,34 @@
         const snapshot = await getDocs(collection(db, "posts"));
         let post = null;
         let postId = null;
-
-        const idiomaPagina = "en";
+        let versaoPT = null;
 
         snapshot.forEach((item) => {
           const dados = item.data();
 
-          if (dados.slug === slug) {
-            if ((dados.idioma || "pt") !== idiomaPagina) return;
-
+          if (dados.slug === slug && (dados.idioma || "pt") === "en") {
             post = dados;
             postId = item.id;
           }
+
+          if (dados.slug === slug && (dados.idioma || "pt") === "pt") {
+            versaoPT = dados;
+          }
         });
+
+        if (versaoPT) {
+          languageSwitch.innerHTML = `
+            <a href="/post.html?slug=${encodeURIComponent(slug)}" onclick="localStorage.setItem('sunflower_idioma', 'pt')">🇧🇷 Português</a>
+            <span class="ativo">🇺🇸 English</span>
+          `;
+          languageStatus.textContent = "This post also has a Portuguese version.";
+        } else {
+          languageSwitch.innerHTML = `
+            <span class="desativado">🇧🇷 Português</span>
+            <span class="ativo">🇺🇸 English</span>
+          `;
+          languageStatus.textContent = "The Portuguese version of this post is not available yet.";
+        }
 
         if (post) {
           try {
@@ -145,9 +219,7 @@
             <article class="post-completo">
               <span class="tag">${post.categoria || "Post"}</span>
               <h1>${post.titulo || "Untitled"}</h1>
-              <p class="meta-post">
-                📅 ${post.data || "No date"} • 👁️ ${post.views || 0} views
-              </p>
+              <p class="meta-post">📅 ${post.data || "No date"} • 👁️ ${post.views || 0} views</p>
               <img src="${post.imagem || ""}" alt="${post.titulo || "Post"}">
               <div class="texto-post">${post.descricao || "No description."}</div>
             </article>
@@ -156,21 +228,16 @@
           container.innerHTML = `
             <article class="post-completo">
               <h1>Post not found 😅</h1>
-              <p class="texto-post">
-                This post does not exist, was deleted, or the link is wrong.
-              </p>
+              <p class="texto-post">This post does not exist, was deleted, or the link is wrong.</p>
             </article>
           `;
         }
       } catch (error) {
         console.error("Error loading post:", error);
-
         container.innerHTML = `
           <article class="post-completo">
             <h1>Loading error 😵</h1>
-            <p class="texto-post">
-              Could not load the post right now. Check the Firebase connection.
-            </p>
+            <p class="texto-post">Could not load the post right now. Check the Firebase connection.</p>
           </article>
         `;
       }
