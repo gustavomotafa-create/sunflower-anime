@@ -173,26 +173,40 @@
 
       try {
         const snapshot = await getDocs(collection(db, "posts"));
+        const posts = [];
+
+        snapshot.forEach((item) => {
+          posts.push({
+            id: item.id,
+            ...item.data()
+          });
+        });
+
         let post = null;
         let postId = null;
         let versaoPT = null;
 
-        snapshot.forEach((item) => {
-          const dados = item.data();
+        // 1) tenta achar o post EN pelo slug
+        post = posts.find(p => p.slug === slug && (p.idioma || "pt") === "en") || null;
+        postId = post ? post.id : null;
 
-          if (dados.slug === slug && (dados.idioma || "pt") === "en") {
-            post = dados;
-            postId = item.id;
-          }
+        // 2) se achou e tem grupoId, procura a versão PT pelo grupoId
+        if (post && post.grupoId) {
+          versaoPT = posts.find(p => p.grupoId === post.grupoId && (p.idioma || "pt") === "pt") || null;
+        }
 
-          if (dados.slug === slug && (dados.idioma || "pt") === "pt") {
-            versaoPT = dados;
-          }
-        });
+        // 3) fallback pros posts antigos sem grupoId
+        if (!versaoPT) {
+          versaoPT = posts.find(p => p.slug === slug && (p.idioma || "pt") === "pt") || null;
+        }
 
         if (versaoPT) {
+          const linkPT = versaoPT.slug
+            ? `/post.html?slug=${encodeURIComponent(versaoPT.slug)}`
+            : `/post.html?slug=${encodeURIComponent(slug)}`;
+
           languageSwitch.innerHTML = `
-            <a href="/post.html?slug=${encodeURIComponent(slug)}" onclick="localStorage.setItem('sunflower_idioma', 'pt')">🇧🇷 Português</a>
+            <a href="${linkPT}" onclick="localStorage.setItem('sunflower_idioma', 'pt')">🇧🇷 Português</a>
             <span class="ativo">🇺🇸 English</span>
           `;
           languageStatus.textContent = "This post also has a Portuguese version.";
