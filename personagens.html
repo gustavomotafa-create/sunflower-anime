@@ -125,9 +125,10 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const POSTS_POR_PAGINA = 6;
-    let paginaAtual = 1;
-    let todosPersonagens = [];
+const POSTS_POR_PAGINA = 6;
+let paginaAtual = 1;
+let todosPersonagens = [];
+const currentLang = window.location.pathname.includes("/en/") ? "en" : "pt";
 
     function criarBotaoPagina(numero) {
       const botao = document.createElement("button");
@@ -277,7 +278,10 @@
           });
         });
 
-        todosPersonagens = posts.filter(post => post.categoria === "personagens");
+        todosPersonagens = posts.filter(post =>
+  post.categoria === "personagens" &&
+  post.idioma === currentLang
+);
         paginaAtual = 1;
         renderizarPersonagensPaginados();
 
