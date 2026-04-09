@@ -125,6 +125,10 @@
   let paginaAtual = 1;
   let todosAnimes = [];
 
+  const currentLang = window.location.pathname.includes("/en/") ? "en" : "pt";
+  const currentPostPage = currentLang === "en" ? "post.html" : "post.html";
+  const currentPrefix = currentLang === "en" ? "/en/" : "/";
+
   function criarBotaoPagina(numero) {
     const botao = document.createElement("button");
     botao.textContent = numero;
@@ -222,9 +226,9 @@
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Aviso</span>
-            <h3>Nenhum anime criado ainda</h3>
-            <p>Crie posts no admin para eles aparecerem aqui 🔥</p>
+            <span class="tag">${currentLang === "en" ? "Notice" : "Aviso"}</span>
+            <h3>${currentLang === "en" ? "No anime posts created yet" : "Nenhum anime criado ainda"}</h3>
+            <p>${currentLang === "en" ? "Create posts in the admin panel for them to appear here 🔥" : "Crie posts no admin para eles aparecerem aqui 🔥"}</p>
           </div>
         </article>
       `;
@@ -238,14 +242,15 @@
 
     animesDaPagina.forEach(post => {
       const slug = post.slug ? post.slug : "#";
-      const descricao = post.descricao ? post.descricao : "Post criado pelo admin 🔥";
+      const descricao = post.descricao ? post.descricao : (currentLang === "en" ? "Post created in admin 🔥" : "Post criado pelo admin 🔥");
+      const postUrl = `${currentPrefix}post.html?slug=${encodeURIComponent(slug)}`;
 
       container.innerHTML += `
-        <a href="post.html?slug=${encodeURIComponent(slug)}" class="card-link">
+        <a href="${postUrl}" class="card-link">
           <article class="card">
             <img src="${post.imagem}" alt="${post.titulo}">
             <div class="conteudo-card">
-              <span class="tag">Anime</span>
+              <span class="tag">${currentLang === "en" ? "Anime" : "Anime"}</span>
               <h3>${post.titulo}</h3>
               <p>${descricao}</p>
             </div>
@@ -271,7 +276,11 @@
         });
       });
 
-      todosAnimes = posts.filter(post => post.categoria === "animes");
+      todosAnimes = posts.filter(post =>
+        post.categoria === "animes" &&
+        post.idioma === currentLang
+      );
+
       paginaAtual = 1;
       renderizarAnimesPaginados();
 
@@ -281,9 +290,9 @@
       container.innerHTML = `
         <article class="card card-hover">
           <div class="conteudo-card">
-            <span class="tag">Erro</span>
-            <h3>Erro ao carregar animes</h3>
-            <p>Confira a conexão com o Firebase 🔥</p>
+            <span class="tag">${currentLang === "en" ? "Error" : "Erro"}</span>
+            <h3>${currentLang === "en" ? "Error loading anime posts" : "Erro ao carregar animes"}</h3>
+            <p>${currentLang === "en" ? "Check the Firebase connection 🔥" : "Confira a conexão com o Firebase 🔥"}</p>
           </div>
         </article>
       `;
