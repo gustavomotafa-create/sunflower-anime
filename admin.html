@@ -378,23 +378,29 @@
 
         <input type="hidden" id="idioma" value="pt">
 
-        <input type="text" id="titulo" placeholder="Título do post">
+<input type="text" id="titulo" placeholder="Título do post">
 
-        <select id="categoria">
-          <option value="teorias">Teorias</option>
-          <option value="animes">Animes</option>
-          <option value="curiosidades">Curiosidades</option>
-          <option value="personagens">Personagens</option>
-        </select>
+<select id="categoria">
+  <option value="teorias">Teorias</option>
+  <option value="animes">Animes</option>
+  <option value="curiosidades">Curiosidades</option>
+  <option value="personagens">Personagens</option>
+</select>
 
-        <select id="exibicao">
-          <option value="normal">Últimos posts</option>
-          <option value="mais-vistos">Mais vistos</option>
-        </select>
+<!-- 👇 COLOCA AQUI -->
+<select id="idioma">
+  <option value="pt">Português 🇧🇷</option>
+  <option value="en">English 🇺🇸</option>
+</select>
 
-        <input type="text" id="imagem" placeholder="Link da imagem">
+<select id="exibicao">
+  <option value="normal">Últimos posts</option>
+  <option value="mais-vistos">Mais vistos</option>
+</select>
 
-        <textarea id="descricao" rows="5" placeholder="Descrição do post"></textarea>
+<input type="text" id="imagem" placeholder="Link da imagem">
+
+<textarea id="descricao" rows="5" placeholder="Descrição do post"></textarea>
 
         <div class="acoes-form">
           <button onclick="salvarPost()" id="botaoSalvar">Publicar 🚀</button>
