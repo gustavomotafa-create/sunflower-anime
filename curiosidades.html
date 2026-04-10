@@ -220,6 +220,18 @@
     paginacao.appendChild(botaoProximo);
   }
 
+  function normalizarTexto(valor) {
+    return String(valor || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function obterIdiomaDoPost(post) {
+    return normalizarTexto(post.idioma || post.language || post.lang || post.linguagem || "pt");
+  }
+
   function renderizarCuriosidadesPaginadas() {
     const container = document.getElementById("curiosidades-container");
     const paginacao = document.getElementById("paginacao-curiosidades");
@@ -280,7 +292,13 @@
         });
       });
 
-      todasCuriosidades = posts.filter(post => post.categoria === "curiosidades");
+      todasCuriosidades = posts.filter(post => {
+        const categoria = normalizarTexto(post.categoria);
+        const idioma = obterIdiomaDoPost(post);
+
+        return categoria === "curiosidades" && idioma === "pt";
+      });
+
       paginaAtual = 1;
       renderizarCuriosidadesPaginadas();
 
